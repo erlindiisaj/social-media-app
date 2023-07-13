@@ -34,17 +34,20 @@ const Navbar = () => {
 
   return (
     <AppBar
+      position="relative"
       style={{
         backgroundColor: "white",
         height: "90px",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        boxShadow: "0px 1px 1px 0px rgba(0,0,0,0.14)",
       }}
     >
       <Container
         sx={{
-          margin: "0 70px 0 70px",
+          margin: "0 70px",
+          padding: "0 !important",
         }}
         maxWidth="xl"
       >
@@ -56,7 +59,7 @@ const Navbar = () => {
           disableGutters
         >
           <Logo />
-          <Box display={"flex"} height="40px">
+          <Box display={"flex"} alignItems="center" height="100%">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon color="gray" />
@@ -69,7 +72,7 @@ const Navbar = () => {
             </Search>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu}>
-                <Avatar alt="Remy Sharp" />
+                <Avatar />
               </IconButton>
             </Tooltip>
             <Menu

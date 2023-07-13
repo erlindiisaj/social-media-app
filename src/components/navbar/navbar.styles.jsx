@@ -10,6 +10,7 @@ export const Search = styled("div")(({ theme }) => ({
     boxShadow: "0px 0px 12px -3px #b7bbc7",
   },
   marginRight: theme.spacing(2.5),
+  height: "40px",
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
