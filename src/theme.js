@@ -48,6 +48,17 @@ export const tokens = (mode) => ({
           800: "#494b50",
           900: "#252528",
         },
+        backgroundAccent: {
+          100: "#fdfdfd",
+          200: "#fbfbfc",
+          300: "#f9f9fa",
+          400: "#f7f7f9",
+          500: "#f5f5f7",
+          600: "#c4c4c6",
+          700: "#939394",
+          800: "#626263",
+          900: "#313131",
+        },
       }
     : {
         blueAccent: {
@@ -73,11 +84,12 @@ export const themeSettings = (mode) => {
         ? {
             primary: {
               main: colors.blueAccent[500],
+              light: colors.blueAccent[100],
             },
             gray: {
               main: colors.gray[500],
               light: colors.gray[200],
-              dark: colors.gray[800],
+              dark: colors.gray[600],
             },
             black: {
               main: colors.black[500],
@@ -87,6 +99,11 @@ export const themeSettings = (mode) => {
               main: colors.white[500],
               dark: colors.white[800],
             },
+            backgroundAccent: {
+              light: colors.backgroundAccent[300],
+              main: colors.backgroundAccent[500],
+              dark: colors.backgroundAccent[600],
+            },
           }
         : {
             primary: {
@@ -95,6 +112,7 @@ export const themeSettings = (mode) => {
           }),
     },
     spacing: 10,
+    borderRadius: "12px",
     typography: {
       fontFamily: ["Poppins", "sans-serif"].join(","),
       fontSize: 12,

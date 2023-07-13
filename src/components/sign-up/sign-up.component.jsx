@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/auth.context";
 import { ReactComponent as GoogleIcon } from "../../Images/google-icon.svg";
 import { ReactComponent as Logo } from "../../Images/logo.svg";
@@ -25,6 +26,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState(userInputInitial);
   const { authState, setAuthSate } = useContext(authContext);
+  const navigate = useNavigate();
 
   const { name, email, password, confirmPassword } = userInput;
 
@@ -54,7 +56,7 @@ const SignUp = () => {
       return;
     }
     console.log(userInput);
-
+    navigate("/homepage");
     resetInputValue();
   };
 

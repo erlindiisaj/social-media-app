@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/auth.context";
 
 import "./sign-in.styles.scss";
@@ -27,6 +28,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { authState, setAuthSate } = useContext(authContext);
   const { email, password } = userInput;
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -50,6 +52,7 @@ const SignIn = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(userInput);
+    navigate("/homepage");
     resetInputValue();
   };
 

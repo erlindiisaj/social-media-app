@@ -1,6 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Auth from "./pages/auth/auth.component";
+import Homepage from "./pages/homepage/homepage.component";
 
 import { useContext } from "react";
 import { ColorModeContext } from "./theme";
@@ -19,7 +20,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route path="/authentication" element={<Auth />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/homepage" element={<Homepage />} />
       </Routes>
     </ThemeProvider>
   );
