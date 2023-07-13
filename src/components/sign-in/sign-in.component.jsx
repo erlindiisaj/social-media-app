@@ -175,7 +175,7 @@ const SignIn = () => {
         </Button>
       </Box>
       <Box mt={3} display="flex">
-        <Typography variant="h6">Don't have an account?</Typography>
+        <Typography variant="h5">Don't have an account?</Typography>
         <Link
           onClick={onSignInClickHandler}
           underline="none"
@@ -183,7 +183,7 @@ const SignIn = () => {
             cursor: "pointer",
           }}
           ml={1}
-          variant="h6"
+          variant="h5"
           fontWeight={"600"}
         >
           Sign Up

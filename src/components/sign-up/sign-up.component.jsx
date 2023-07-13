@@ -117,7 +117,7 @@ const SignUp = () => {
 
       <Box
         width={"300px"}
-        mb={4.5}
+        mb={3}
         display={"flex"}
         alignItems="center"
         justifyContent="center"
@@ -224,7 +224,7 @@ const SignUp = () => {
       </Box>
 
       <Box display="flex">
-        <Typography variant="h6">Already have an account?</Typography>
+        <Typography variant="h5">Already have an account?</Typography>
         <Link
           onClick={onSignUpClickHandler}
           underline="none"
@@ -232,7 +232,7 @@ const SignUp = () => {
             cursor: "pointer",
           }}
           ml={1}
-          variant="h6"
+          variant="h5"
           fontWeight={"600"}
         >
           Sign In
