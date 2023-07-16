@@ -1,0 +1,45 @@
+input {
+    border: transparent;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input::placeholder {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500 !important;
+        color: #b7bBC7;
+    
+}
+
+
+.upload-image-form {
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.inputfile {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile-container {
+    label {
+    width: 100%;
+    font-weight: 600;
+    color: #B7BBC7;
+    font-family: Poppins;
+     
+    }
+}
