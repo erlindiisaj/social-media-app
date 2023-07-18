@@ -46,7 +46,8 @@ const srcset = (image, size, rows = 1, cols = 1) => {
   };
 };
 
-const Post = () => {
+const Post = ({ post }) => {
+  const { user, dateCreated, description, likes, comments } = post;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -64,7 +65,7 @@ const Post = () => {
   };
 
   return (
-    <div>
+    <div className="posts-container">
       <Box
         sx={{
           width: "100%",
@@ -76,10 +77,10 @@ const Post = () => {
           <Avatar />
           <Box marginLeft={1.2}>
             <Typography fontWeight="600" variant="h4">
-              Tyler Bezos
+              {user}
             </Typography>
             <Typography color="gray.main" variant="h5">
-              5 hours ago
+              {dateCreated}
             </Typography>
           </Box>
         </Box>
@@ -123,9 +124,7 @@ const Post = () => {
       </Box>
       <Box mt={2.5}>
         <Typography color="black.light" variant="h5">
-          Embarking on a transformative journey, I let my wanderlust guide me
-          through unfamiliar landscapes, in the embrace of nature and
-          discovering the depths of my soul!
+          {description}
         </Typography>
         <Box mt={4}>
           <ImageList
@@ -168,7 +167,7 @@ const Post = () => {
               isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />
             }
           >
-            540
+            {likes}
           </Button>
           <Button
             sx={{
@@ -179,7 +178,7 @@ const Post = () => {
             variant="soft"
             startIcon={<ChatBubbleOutlineRoundedIcon />}
           >
-            540
+            {comments}
           </Button>
         </Box>
       </Box>

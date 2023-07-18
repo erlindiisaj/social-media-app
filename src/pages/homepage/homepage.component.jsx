@@ -1,12 +1,17 @@
+import { Avatar, Box, IconButton, Typography } from "@mui/material";
+
 import Navbar from "../../components/navbar/navbar.component";
 import Story from "../../components/story/story.component";
 import Sidebar from "../../components/sidebar/sidebar.component";
 import CreatePost from "../../components/create-post/create-post.component";
 import Post from "../../components/post/post.component";
 import Suggest from "../../components/suggest/suggest.component";
-import STORY_DATA from "../../data";
+import Events from "../../components/events/events.component";
+
+import STORY_DATA from "../../STORY_DATA";
 import SUGGEST_DATA from "../../SUGGEST_DATA";
-import { Avatar, Box, IconButton, Typography } from "@mui/material";
+import EVENTS_DATA from "../../EVENTS_DATA";
+import POSTS_DATA from "../../POSTS_DATA";
 
 const Homepage = () => {
   return (
@@ -85,17 +90,10 @@ const Homepage = () => {
           >
             <CreatePost />
           </Box>
-          <Box
-            sx={{
-              padding: "40px",
-              width: "100%",
-              backgroundColor: "white.main",
-              borderRadius: "12px",
-              height: "fit-content",
-              marginTop: "30px",
-            }}
-          >
-            <Post />
+          <Box>
+            {POSTS_DATA.map((post) => (
+              <Post id={post.id} post={post} />
+            ))}
           </Box>
         </Box>
         <Box>
@@ -113,10 +111,9 @@ const Homepage = () => {
                 padding: "10px 25px",
               }}
             >
-              {SUGGEST_DATA.map((suggest) => {
-                console.log(suggest);
-                return <Suggest id={suggest.id} suggest={suggest} />;
-              })}
+              {SUGGEST_DATA.map((suggest) => (
+                <Suggest id={suggest.id} suggest={suggest} />
+              ))}
             </Box>
           </Box>
           <Box marginTop="30px">
@@ -125,13 +122,21 @@ const Homepage = () => {
             </Typography>
             <Box
               sx={{
+                display: "flex",
+                padding: "20px 25px",
                 width: "100%",
                 backgroundColor: "white.main",
                 borderRadius: "12px",
                 height: "260px",
                 marginTop: "10px",
+                flexDirection: "column",
+                justifyContent: "space-around",
               }}
-            ></Box>
+            >
+              {EVENTS_DATA.map((event) => (
+                <Events id={event.date} event={event} />
+              ))}
+            </Box>
           </Box>
         </Box>
       </Box>
