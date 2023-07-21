@@ -56,7 +56,7 @@ const SignUp = () => {
       return;
     }
     console.log(userInput);
-    navigate("/homepage");
+    navigate("/user");
     resetInputValue();
   };
 

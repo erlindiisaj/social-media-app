@@ -16,8 +16,14 @@ const CreatePost = () => {
             marginRight: "20px",
           }}
         />
-        <input input type="file" name="file" id="file" class="inputfile" />
-        <label for="file">Click here to add a post</label>{" "}
+        <input
+          input="true"
+          type="file"
+          name="file"
+          id="file"
+          className="inputfile"
+        />
+        <label htmlFor="file">Click here to add a post</label>{" "}
       </Box>
       <Box>
         <Button

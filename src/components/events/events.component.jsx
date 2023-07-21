@@ -1,23 +1,29 @@
 import { Box, Typography } from "@mui/material";
-import { ReactComponent as LocationSVG } from "../../Images/location-logo.svg";
-import { ReactComponent as Calendar } from "../../Images/calendar05.svg";
+import Event from "../event/event.components";
 import EVENTS_DATA from "../../EVENTS_DATA";
 
 const Events = ({ event }) => {
-  const { date, name, location } = event;
   return (
-    <Box display="flex" alignItems="center">
-      <Calendar />
-      <Box ml={1}>
-        <Typography variant="h3" fontWeight={500}>
-          {name}
-        </Typography>
-        <Box mt={0.5} display="flex" alignItems="center">
-          <LocationSVG />
-          <Typography color="black.light" ml={0.4} variant="h5">
-            {location}
-          </Typography>
-        </Box>
+    <Box marginTop="30px">
+      <Typography variant="h4" color="black.light">
+        EVENTS OF THE MONTH
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          padding: "20px 25px",
+          width: "100%",
+          backgroundColor: "white.main",
+          borderRadius: "12px",
+          height: "260px",
+          marginTop: "10px",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+      >
+        {EVENTS_DATA.map((event) => (
+          <Event key={event.date} event={event} />
+        ))}
       </Box>
     </Box>
   );

@@ -4,6 +4,8 @@ import { ReactComponent as HomeSVG } from "../../Images/home.svg";
 import { ReactComponent as NewsfeedSVG } from "../../Images/newsfeed.svg";
 import "./sidebar.styles.scss";
 import { ReactComponent as PhotoSVG } from "../../Images/photos.svg";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
 
 const Sidebar = () => {
   const handleClick = (e) => {
@@ -11,33 +13,45 @@ const Sidebar = () => {
     console.log(e);
   };
 
+  const StyledLink = styled(Link)`
+    border: 1px solid red;
+    width: 100%;
+    height: 100%;
+  `;
+
   return (
-    <div className="sidebar-container">
-      <Box onClick={handleClick} id="profile" className="sidebar-link">
-        <ProfileSVG />
-        <Typography ml={2} variant="h5" fontWeight="600" color="black.light">
-          Profile
-        </Typography>
-      </Box>
-      <Box onClick={handleClick} id="home" className=" active sidebar-link">
-        <HomeSVG />
-        <Typography ml={2} variant="h5" fontWeight="600" color="black.light">
-          Home
-        </Typography>
-      </Box>
-      <Box onClick={handleClick} className=" sidebar-link">
-        <NewsfeedSVG />
-        <Typography ml={2} variant="h5" fontWeight="600" color="black.light">
-          News Feed
-        </Typography>
-      </Box>
-      <Box onClick={handleClick} className="last sidebar-link ">
-        <PhotoSVG />
-        <Typography ml={2} variant="h5" fontWeight="600" color="black.light">
-          Photos
-        </Typography>
-      </Box>
-    </div>
+    <Box
+      sx={{
+        marginTop: "20px",
+        height: "220px",
+        backgroundColor: "white.main",
+        borderRadius: "12px",
+      }}
+    >
+      <div className="sidebar-container">
+        <Box
+          verticalAlign="middle"
+          onClick={handleClick}
+          id="home"
+          className=" active sidebar-link"
+        >
+          <HomeSVG />
+          <StyledLink to="/user">Home</StyledLink>
+        </Box>
+        <Box onClick={handleClick} id="profile" className="sidebar-link">
+          <ProfileSVG />
+          <StyledLink to={"profile"}>Profile</StyledLink>
+        </Box>
+        <Box onClick={handleClick} className=" sidebar-link">
+          <NewsfeedSVG />
+          <StyledLink to={"newsfeed"}>News Feed</StyledLink>
+        </Box>
+        <Box onClick={handleClick} className="last sidebar-link ">
+          <PhotoSVG />
+          <StyledLink to={"photos"}>Photos</StyledLink>
+        </Box>
+      </div>
+    </Box>
   );
 };
 

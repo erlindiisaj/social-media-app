@@ -1,6 +1,5 @@
 import { Avatar, Box, Typography } from "@mui/material";
 const Story = ({ name, imageUrl, id }) => {
-  console.log(imageUrl);
   return (
     <Box
       sx={{
