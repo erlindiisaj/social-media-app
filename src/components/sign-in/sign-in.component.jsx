@@ -52,7 +52,7 @@ const SignIn = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(userInput);
-    navigate("/user");
+    navigate("/user/home");
     resetInputValue();
   };
 

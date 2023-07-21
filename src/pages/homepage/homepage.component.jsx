@@ -27,6 +27,7 @@ const Homepage = () => {
           borderRadius: "12px",
           height: "80px",
           marginTop: "30px",
+          marginBottom: "30px",
         }}
       >
         <CreatePost />

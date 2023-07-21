@@ -1,5 +1,14 @@
+import Post from "../../components/post/post.component";
+import POSTS_DATA from "../../POSTS_DATA";
+
 const Newsfeed = () => {
-  return <div>Newsfeed</div>;
+  return (
+    <div>
+      {POSTS_DATA.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
+    </div>
+  );
 };
 
 export default Newsfeed;
