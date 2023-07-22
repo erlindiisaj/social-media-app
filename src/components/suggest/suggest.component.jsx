@@ -1,7 +1,7 @@
 import { Typography, Box } from "@mui/material";
 
-import SUGGEST_DATA from "../../SUGGEST_DATA";
-import SuggestUser from "../suggest-user/suggest-user.component";
+import SUGGEST_DATA from "../../datas/SUGGEST_DATA";
+import SuggestUser from "../suggest-container/suggest-user.component";
 
 const Suggest = () => {
   return (

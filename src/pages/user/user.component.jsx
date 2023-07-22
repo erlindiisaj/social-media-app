@@ -1,20 +1,19 @@
 import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
+
 import Navbar from "../../components/navbar/navbar.component";
 import Sidebar from "../../components/sidebar/sidebar.component";
-
 import Suggest from "../../components/suggest/suggest.component";
-import Events from "../../components/events/events.component";
-
+import Events from "../../components/events-container/events.component";
 import CurrentUser from "../../components/current-user/current-user.component";
-import DisplayComponent from "../../components/display-component/display-components";
+import RouteDisplay from "../../components/route-display/route-display.component";
 
 const User = () => {
   return (
     <Box
-      height={"100%"}
       width={1}
       sx={{
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "backgroundAccent.main",
@@ -27,7 +26,6 @@ const User = () => {
         sx={{
           display: "grid",
           gridTemplateColumns: "1fr 3fr 1fr",
-
           columnGap: "45px",
           padding: "20px 70px",
         }}
@@ -41,7 +39,7 @@ const User = () => {
           <Sidebar />
         </Box>
         <Routes>
-          <Route path=":page" element={<DisplayComponent />} />
+          <Route path=":page" element={<RouteDisplay />} />
         </Routes>
 
         <Box sx={{ gridColumn: "3/4" }}>

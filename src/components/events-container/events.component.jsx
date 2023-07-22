@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import Event from "../event/event.components";
-import EVENTS_DATA from "../../EVENTS_DATA";
+import EVENTS_DATA from "../../datas/EVENTS_DATA";
 
 const Events = ({ event }) => {
   return (

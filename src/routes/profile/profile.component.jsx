@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography } from "@mui/material";
-import ProfilePost from "../../components/profile-post/profile-post.component";
-import POSTS_DATA from "../../POSTS_DATA";
+import ProfilePost from "../../components/gallery/gallery.component";
+import POSTS_DATA from "../../datas/POSTS_DATA";
 const Profile = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">

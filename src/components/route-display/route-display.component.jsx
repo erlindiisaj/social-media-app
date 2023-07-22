@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import Homepage from "../../pages/homepage/homepage.component";
-import Profile from "../../pages/profile/profile.component";
-import Newsfeed from "../../pages/newsfeed/newsfeed.component";
-import Photos from "../../pages/photos/photos.component";
+import Homepage from "../../routes/homepage/homepage.component";
+import Profile from "../../routes/profile/profile.component";
+import Newsfeed from "../../routes/newsfeed/newsfeed.component";
+import Photos from "../../routes/photos/photos.component";
 
-const DisplayComponent = () => {
+const RouteDisplay = () => {
   const { page } = useParams();
 
   switch (page) {
@@ -21,4 +21,4 @@ const DisplayComponent = () => {
   }
 };
 
-export default DisplayComponent;
+export default RouteDisplay;

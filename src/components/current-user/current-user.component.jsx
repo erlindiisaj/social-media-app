@@ -14,7 +14,6 @@ const CurrentUser = () => {
       }}
     >
       <Avatar />
-
       <Box ml="10px">
         <Typography fontWeight="600">Erlindi Isaj</Typography>
         <Typography color="gray.main">@erlindiisaj</Typography>

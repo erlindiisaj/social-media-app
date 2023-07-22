@@ -1,5 +1,5 @@
 import Post from "../../components/post/post.component";
-import POSTS_DATA from "../../POSTS_DATA";
+import POSTS_DATA from "../../datas/POSTS_DATA";
 
 const Newsfeed = () => {
   return (

@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 
-import CreatePost from "../../components/create-post/create-post.component";
+import CreatePost from "../../components/upload-image/upload-image.component";
 import Post from "../../components/post/post.component";
 import Story from "../../components/story/story.component";
 
-import STORY_DATA from "../../STORY_DATA";
-import POSTS_DATA from "../../POSTS_DATA";
+import STORY_DATA from "../../datas/STORY_DATA";
+import POSTS_DATA from "../../datas/POSTS_DATA";
 
 const Homepage = () => {
   return (

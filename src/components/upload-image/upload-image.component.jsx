@@ -1,6 +1,5 @@
 import { Avatar, Box, Button } from "@mui/material";
-
-import "./create-post.styles.scss";
+import "./upload-image.styles.scss";
 
 const CreatePost = () => {
   const handleSubmit = (e) => {

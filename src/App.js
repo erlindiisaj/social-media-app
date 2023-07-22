@@ -20,7 +20,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route path="auth" element={<Auth />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="user/*" element={<User />} />
       </Routes>
     </ThemeProvider>
