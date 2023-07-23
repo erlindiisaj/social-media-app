@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import { ReactComponent as ProfileSVG } from "../../Images/user.svg";
 import { ReactComponent as HomeSVG } from "../../Images/home.svg";
 import { ReactComponent as NewsfeedSVG } from "../../Images/newsfeed.svg";
-import "./sidebar.styles.scss";
 import { ReactComponent as PhotoSVG } from "../../Images/photos.svg";
-import { Link } from "react-router-dom";
+
+import "./sidebar.styles.scss";
+
 const Sidebar = () => {
   const [isActive, setIsActive] = useState({
     home: true,

@@ -1,6 +1,12 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/auth.context";
+import { userContext } from "../../contexts/user.context";
+
+import {
+  logInWithEmailAndPassword,
+  signInWithGooglePopup,
+} from "../../utils/firebase/firebase.utils";
 
 import "./sign-in.styles.scss";
 
@@ -27,10 +33,12 @@ const SignIn = () => {
   const [userInput, setUserInput] = useState(userInputInitial);
   const [showPassword, setShowPassword] = useState(false);
   const { authState, setAuthSate } = useContext(authContext);
+  const { user, setUser } = useContext(userContext);
   const { email, password } = userInput;
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -49,11 +57,20 @@ const SignIn = () => {
     });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(userInput);
-    navigate("/user/home");
-    resetInputValue();
+    try {
+      await logInWithEmailAndPassword(userInput);
+      resetInputValue();
+      navigate("home");
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleGoogleButton = (e) => {
+    e.preventDefault();
+    signInWithGooglePopup();
   };
 
   const resetInputValue = () => {
@@ -164,6 +181,7 @@ const SignIn = () => {
           <Line />
         </Box>
         <Button
+          onClick={handleGoogleButton}
           style={{
             borderRadius: "12px",
             color: "black",

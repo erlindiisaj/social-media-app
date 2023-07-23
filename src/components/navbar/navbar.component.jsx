@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
 import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";
@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { userSignOut } from "../../utils/firebase/firebase.utils";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -24,11 +25,12 @@ const Navbar = () => {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const handleCloseUserMenu = (e) => {
+  const handleCloseUserMenu = async (e) => {
     e.preventDefault();
     setAnchorElUser(null);
     if (e.target.id === "Logout") {
-      navigate("/auth");
+      await userSignOut();
+      navigate("auth");
     }
   };
 

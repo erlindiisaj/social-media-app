@@ -2,26 +2,42 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Auth from "./pages/auth/auth.component";
 import User from "./pages/user/user.component";
+import WelcomePage from "./pages/welcome-page/welcome-page.component";
+import PrivateRoute from "./routes/private-route/private-route.component";
+import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
 
-import { useContext } from "react";
 import { ColorModeContext } from "./theme";
 import { CssBaseline, createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import { userContext } from "./contexts/user.context";
+import { useContext, useEffect } from "react";
+import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 
 const App = () => {
+  const { user, setUser } = useContext(userContext);
   const { settings } = useContext(ColorModeContext);
-  // const handleModeChange = () => {
-  //   const currentMode = mode === "light";
-  //   setMode(currentMode ? "dark" : "light");
-  // };
   const theme = createTheme(settings);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+        console.log(user);
+      }
+      setUser(user);
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route path="user/*" element={<User />} />
+        {user ? (
+          <Route path="/user/*" element={<User />} />
+        ) : (
+          <Route path="/auth" element={<Auth />} />
+        )}
       </Routes>
     </ThemeProvider>
   );

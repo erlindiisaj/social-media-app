@@ -6,6 +6,7 @@ import Story from "../../components/story/story.component";
 
 import STORY_DATA from "../../datas/STORY_DATA";
 import POSTS_DATA from "../../datas/POSTS_DATA";
+import StoriesContainer from "../../components/stories-container/stories-container.component";
 
 const Homepage = () => {
   return (
@@ -14,12 +15,7 @@ const Homepage = () => {
         gridColumn: "2/3",
       }}
     >
-      <Box display="flex" justifyContent="space-between">
-        {STORY_DATA.map((story) => {
-          const { name, imageUrl, id } = story;
-          return <Story name={name} imageUrl={imageUrl} key={id} />;
-        })}
-      </Box>
+      <StoriesContainer />
       <Box
         sx={{
           width: "100%",

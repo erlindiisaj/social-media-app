@@ -1,6 +1,11 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/auth.context";
+import { userContext } from "../../contexts/user.context";
+
+import { signUpWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
+
 import { ReactComponent as GoogleIcon } from "../../Images/google-icon.svg";
 import { ReactComponent as Logo } from "../../Images/logo.svg";
 import { ReactComponent as Line } from "../../Images/line.svg";
@@ -26,6 +31,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState(userInputInitial);
   const { authState, setAuthSate } = useContext(authContext);
+  const { user, setUser } = useContext(userContext);
   const navigate = useNavigate();
 
   const { name, email, password, confirmPassword } = userInput;
@@ -48,16 +54,24 @@ const SignUp = () => {
     setUserInput(userInputInitial);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       alert("Password not matching");
       return;
     }
-    console.log(userInput);
-    navigate("/user/home");
-    resetInputValue();
+    try {
+      await signUpWithEmailAndPassword(userInput);
+      resetInputValue();
+      navigate("home");
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleGoogleButton = (e) => {
+    e.preventDefault();
+    signInWithGooglePopup();
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -85,6 +99,7 @@ const SignUp = () => {
       </Box>
       <Box width={"300px"}>
         <Button
+          onClick={handleGoogleButton}
           style={{
             borderRadius: "12px",
             color: "black",
