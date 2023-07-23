@@ -33,11 +33,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        {user ? (
-          <Route path="/*" element={<User />} />
-        ) : (
-          <Route index path="/" element={<Auth />} />
-        )}
+        <Route index path="/" element={<Auth />} />
+        <Route path="/*" element={<User />} />
       </Routes>
     </ThemeProvider>
   );
