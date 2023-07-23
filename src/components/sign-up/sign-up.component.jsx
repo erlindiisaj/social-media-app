@@ -63,15 +63,20 @@ const SignUp = () => {
     try {
       await signUpWithEmailAndPassword(userInput);
       resetInputValue();
-      navigate("home");
+      navigate("/home");
     } catch (err) {
       alert(err);
     }
   };
 
-  const handleGoogleButton = (e) => {
+  const handleGoogleButton = async (e) => {
     e.preventDefault();
-    signInWithGooglePopup();
+    try {
+      await signInWithGooglePopup();
+      navigate("/home");
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);

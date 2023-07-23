@@ -34,9 +34,9 @@ const App = () => {
       <CssBaseline />
       <Routes>
         {user ? (
-          <Route path="/user/*" element={<User />} />
+          <Route path="/*" element={<User />} />
         ) : (
-          <Route path="/auth" element={<Auth />} />
+          <Route index path="/" element={<Auth />} />
         )}
       </Routes>
     </ThemeProvider>

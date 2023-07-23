@@ -30,7 +30,7 @@ const Navbar = () => {
     setAnchorElUser(null);
     if (e.target.id === "Logout") {
       await userSignOut();
-      navigate("auth");
+      navigate("/");
     }
   };
 
