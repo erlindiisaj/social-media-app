@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/auth.context";
-import { userContext } from "../../contexts/user.context";
 
 import {
   logInWithEmailAndPassword,
@@ -33,7 +32,6 @@ const SignIn = () => {
   const [userInput, setUserInput] = useState(userInputInitial);
   const [showPassword, setShowPassword] = useState(false);
   const { authState, setAuthSate } = useContext(authContext);
-  const { user, setUser } = useContext(userContext);
   const { email, password } = userInput;
   const navigate = useNavigate();
 
@@ -62,7 +60,7 @@ const SignIn = () => {
     try {
       await logInWithEmailAndPassword(userInput);
       resetInputValue();
-      navigate("/home");
+      navigate("user/home");
     } catch (err) {
       alert(err);
     }
@@ -72,7 +70,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       await signInWithGooglePopup();
-      navigate("/home");
+      navigate("user/home");
     } catch (err) {
       alert(err);
     }

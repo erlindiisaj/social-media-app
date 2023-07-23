@@ -1,9 +1,7 @@
 import "./App.css";
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Auth from "./pages/auth/auth.component";
-import User from "./pages/user/user.component";
-import WelcomePage from "./pages/welcome-page/welcome-page.component";
-import PrivateRoute from "./routes/private-route/private-route.component";
 import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
 
 import { ColorModeContext } from "./theme";
@@ -12,9 +10,12 @@ import { ThemeProvider } from "@emotion/react";
 import { userContext } from "./contexts/user.context";
 import { useContext, useEffect } from "react";
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
+import Loading from "./components/loading/loading.component";
+
+const User = lazy(() => import("./pages/user/user.component"));
 
 const App = () => {
-  const { user, setUser } = useContext(userContext);
+  const { setUser } = useContext(userContext);
   const { settings } = useContext(ColorModeContext);
   const theme = createTheme(settings);
 
@@ -32,10 +33,14 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Routes>
-        <Route index path="/" element={<Auth />} />
-        <Route path="/*" element={<User />} />
-      </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route index element={<Auth />} />
+          <Route path="user" element={<User />}>
+            <Route path=":page" element={null} />
+          </Route>
+        </Routes>
+      </Suspense>
     </ThemeProvider>
   );
 };

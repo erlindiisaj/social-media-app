@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../contexts/auth.context";
-import { userContext } from "../../contexts/user.context";
 
 import { signUpWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
@@ -31,7 +30,6 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState(userInputInitial);
   const { authState, setAuthSate } = useContext(authContext);
-  const { user, setUser } = useContext(userContext);
   const navigate = useNavigate();
 
   const { name, email, password, confirmPassword } = userInput;
@@ -63,7 +61,7 @@ const SignUp = () => {
     try {
       await signUpWithEmailAndPassword(userInput);
       resetInputValue();
-      navigate("/home");
+      navigate("user/home");
     } catch (err) {
       alert(err);
     }
@@ -73,7 +71,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       await signInWithGooglePopup();
-      navigate("/home");
+      navigate("user/home");
     } catch (err) {
       alert(err);
     }

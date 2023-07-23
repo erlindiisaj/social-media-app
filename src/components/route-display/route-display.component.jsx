@@ -1,12 +1,10 @@
-import { useParams } from "react-router-dom";
 import Homepage from "../../routes/homepage/homepage.component";
 import Profile from "../../routes/profile/profile.component";
 import Newsfeed from "../../routes/newsfeed/newsfeed.component";
 import Photos from "../../routes/photos/photos.component";
+import WrongPath from "../wrong-path/wrong-path.component";
 
-const RouteDisplay = () => {
-  const { page } = useParams();
-
+const RouteDisplay = ({ page }) => {
   switch (page) {
     case "home":
       return <Homepage />;
@@ -17,7 +15,7 @@ const RouteDisplay = () => {
     case "photos":
       return <Photos />;
     default:
-      <Homepage />;
+      return <WrongPath />;
   }
 };
 

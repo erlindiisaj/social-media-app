@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
 import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";

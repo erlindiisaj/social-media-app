@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { ReactComponent as ProfileSVG } from "../../Images/user.svg";
 import { ReactComponent as HomeSVG } from "../../Images/home.svg";
@@ -10,12 +11,25 @@ import { ReactComponent as PhotoSVG } from "../../Images/photos.svg";
 import "./sidebar.styles.scss";
 
 const Sidebar = () => {
+  const { page } = useParams();
   const [isActive, setIsActive] = useState({
-    home: true,
+    home: false,
     profile: false,
     newsfeed: false,
     photos: false,
   });
+
+  useEffect(() => {
+    const clickedElement = page;
+    const updatedData = { ...isActive };
+    for (const key in updatedData) {
+      updatedData[key] = false;
+    }
+    setIsActive({
+      ...updatedData,
+      [clickedElement]: true,
+    });
+  }, [page]);
 
   const handleClick = (e) => {
     const clickedElement = e.currentTarget.id;
