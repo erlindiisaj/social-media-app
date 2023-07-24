@@ -18,7 +18,7 @@ const StoriesContainer = () => {
         const { name, imageUrl, id } = story;
         return (
           <motion.div
-            transition={{ duration: 1 }}
+            transition={{ delay: 1 }}
             onClick={() => {
               selectedId ? setSelectedId(null) : setSelectedId(id);
             }}

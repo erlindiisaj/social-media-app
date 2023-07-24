@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ColorModeContextProvider } from "./theme";
 import { AuthContextProvider } from "./contexts/auth.context";
 import { UserContextProvider } from "./contexts/user.context";
+import { UserPostsProvider } from "./contexts/userPosts.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,9 +15,11 @@ root.render(
     <BrowserRouter>
       <ColorModeContextProvider>
         <UserContextProvider>
-          <AuthContextProvider>
-            <App />
-          </AuthContextProvider>
+          <UserPostsProvider>
+            <AuthContextProvider>
+              <App />
+            </AuthContextProvider>
+          </UserPostsProvider>
         </UserContextProvider>
       </ColorModeContextProvider>
     </BrowserRouter>

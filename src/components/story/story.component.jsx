@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { Avatar, Typography } from "@mui/material";
-
+import { motion } from "framer-motion";
 import "./story.styles.scss";
 
 const Story = ({ name, imageUrl, id }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const handleClick = (e) => {
+    console.log(e);
     e.preventDefault();
     setSelectedId(id);
   };
 
   return (
-    <div
+    <motion.div
+      onClick={handleClick}
       style={{
         cursor: "pointer",
         padding: "15px 0",
@@ -34,8 +36,11 @@ const Story = ({ name, imageUrl, id }) => {
       <Typography color="white.main" fontWeight="600">
         {name}
       </Typography>
-      <div className="dim-layer" animate={{ opacity: selectedId ? 1 : 0 }} />
-    </div>
+      <motion.div
+        className="dim-layer"
+        animate={{ opacity: selectedId ? 1 : 0 }}
+      />
+    </motion.div>
   );
 };
 

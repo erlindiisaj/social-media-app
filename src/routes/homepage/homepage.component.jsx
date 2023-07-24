@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-
+import { useContext } from "react";
+import { userPosts } from "../../contexts/userPosts.context";
 import CreatePost from "../../components/upload-image/upload-image.component";
 import Post from "../../components/post/post.component";
 
@@ -7,6 +8,7 @@ import POSTS_DATA from "../../datas/POSTS_DATA";
 import StoriesContainer from "../../components/stories-container/stories-container.component";
 
 const Homepage = () => {
+  const { postsList } = useContext(userPosts);
   return (
     <Box
       sx={{
@@ -27,7 +29,7 @@ const Homepage = () => {
         <CreatePost />
       </Box>
       <Box>
-        {POSTS_DATA.map((post) => (
+        {postsList.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </Box>

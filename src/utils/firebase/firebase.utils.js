@@ -9,7 +9,24 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { getDoc, setDoc, doc, getFirestore } from "firebase/firestore";
+import {
+  getDoc,
+  setDoc,
+  doc,
+  getFirestore,
+  getDocs,
+  query,
+  addDoc,
+  writeBatch,
+  collection,
+} from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  listAll,
+} from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 
 // Your web app's Firebase configuration
@@ -27,12 +44,40 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
 const db = getFirestore();
 
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
+
+//!~~~~~~~~~~~~~~~~~~~~~~~~~ Post Functions ~~~~~~~~~~~~~~~~~~~~~~~~~!//
+
+export const uploadPost = async (uid, objectToAdd, file) => {
+  const storageRef = ref(storage, `/files/${uid}/${file.name}`);
+  const uploadedImage = await uploadBytesResumable(storageRef, file);
+  const path = uploadedImage.ref._location.path;
+  const imageRef = ref(storage, path);
+  const collectionRef = collection(db, `users/${uid}/posts`);
+  getDownloadURL(imageRef).then((url) => {
+    addDoc(collectionRef, {
+      ...objectToAdd,
+      imageUrl: url,
+    });
+  });
+};
+
+export const getUserData = async (userAuth) => {
+  const { uid } = userAuth;
+  const result = [];
+  const querySnapshot = await getDocs(collection(db, `users/${uid}/posts`));
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    result.push(doc.data());
+  });
+  return result;
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth,

@@ -2,7 +2,11 @@ import "./App.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Auth from "./pages/auth/auth.component";
-import { createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
+import {
+  addPostToDatabase,
+  createUserDocumentFromAuth,
+  getUserData,
+} from "./utils/firebase/firebase.utils";
 
 import { ColorModeContext } from "./theme";
 import { CssBaseline, createTheme } from "@mui/material";
@@ -11,11 +15,13 @@ import { userContext } from "./contexts/user.context";
 import { useContext, useEffect } from "react";
 import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import Loading from "./components/loading/loading.component";
+import { userPosts } from "./contexts/userPosts.context";
 
 const User = lazy(() => import("./pages/user/user.component"));
 
 const App = () => {
   const { setUser } = useContext(userContext);
+  const { setPostsList } = useContext(userPosts);
   const { settings } = useContext(ColorModeContext);
   const theme = createTheme(settings);
 
@@ -23,7 +29,15 @@ const App = () => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);
-        console.log(user);
+        try {
+          const data = async () => {
+            const result = await getUserData(user);
+            setPostsList(result);
+          };
+          data();
+        } catch (err) {
+          console.log(err);
+        }
       }
       setUser(user);
     });

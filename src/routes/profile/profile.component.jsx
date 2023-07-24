@@ -1,7 +1,12 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import ProfilePost from "../../components/gallery/gallery.component";
+import { useContext } from "react";
+import { userPosts } from "../../contexts/userPosts.context";
+
 import POSTS_DATA from "../../datas/POSTS_DATA";
 const Profile = () => {
+  const { postsList } = useContext(userPosts);
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box
@@ -106,7 +111,7 @@ const Profile = () => {
           justifyContent="space-around"
           flexWrap="wrap"
         >
-          {POSTS_DATA.map((post) => (
+          {postsList.map((post) => (
             <ProfilePost key={post.id} post={post} />
           ))}
         </Box>
