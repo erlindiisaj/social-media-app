@@ -12,43 +12,10 @@ import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import "./post.styles.scss";
 
-const options = ["Edit", "Delete"];
-
-const ITEM_HEIGHT = 48;
-
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-    cols: 2,
-  },
-];
-
-const srcset = (image, size, rows = 1, cols = 1) => {
-  return {
-    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
-  };
-};
+const options = ["Delete"];
 
 const Post = ({ post }) => {
-  const { user, dateCreated, description, likes, comments } = post;
+  const { user, dateCreated, description, likes, comments, imageUrl } = post;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -107,7 +74,7 @@ const Post = ({ post }) => {
             onClose={handleClose}
             PaperProps={{
               style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
+                maxHeight: 20 * 4.5,
                 width: "20ch",
               },
             }}
@@ -128,35 +95,18 @@ const Post = ({ post }) => {
         <Typography color="black.light" variant="h5">
           {description}
         </Typography>
-        <Box mt={4}>
-          <ImageList
-            sx={{
-              width: "100%",
-              height: "100%",
-            }}
-            variant="quilted"
-            cols={4}
-            rowHeight={200}
-          >
-            {itemData.map((item) => (
-              <ImageListItem
-                key={item.img}
-                cols={item.cols || 1}
-                rows={item.rows || 1}
-              >
-                <img
-                  {...srcset(item.img, 121, item.rows, item.cols)}
-                  alt={item.title}
-                  loading="lazy"
-                  height="100%"
-                  style={{
-                    borderRadius: "12px",
-                  }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Box>
+        <Box
+          mt={4}
+          sx={{
+            borderRadius: "12px",
+            width: "100%",
+            minHeight: "600px",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundImage: `url(${imageUrl})`,
+          }}
+        ></Box>
         <Box mt={2} display="flex">
           <Button
             onClick={handleLike}
