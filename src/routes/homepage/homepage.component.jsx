@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { userPosts } from "../../contexts/userPosts.context";
 import CreatePost from "../../components/upload-image/upload-image.component";
 import Post from "../../components/post/post.component";
-
-import POSTS_DATA from "../../datas/POSTS_DATA";
+import { v4 as uuidv4 } from "uuid";
 import StoriesContainer from "../../components/stories-container/stories-container.component";
 
 const Homepage = () => {
@@ -21,16 +20,21 @@ const Homepage = () => {
           width: "100%",
           backgroundColor: "white.main",
           borderRadius: "12px",
-          height: "80px",
+          height: "220px",
           marginTop: "30px",
           marginBottom: "30px",
         }}
       >
         <CreatePost />
       </Box>
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column-reverse",
+        }}
+      >
         {postsList.map((post) => (
-          <Post key={post.id} post={post} />
+          <Post key={uuidv4()} post={post} />
         ))}
       </Box>
     </Box>

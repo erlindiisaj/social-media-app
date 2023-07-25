@@ -1,4 +1,5 @@
 import { useState } from "react";
+import moment from "moment";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -61,6 +62,7 @@ const Post = ({ post }) => {
 
   const handleLike = (e) => {
     e.preventDefault();
+    console.log(dateCreated);
     setIsLiked(!isLiked);
   };
 
@@ -80,7 +82,7 @@ const Post = ({ post }) => {
               {user}
             </Typography>
             <Typography color="gray.main" variant="h5">
-              {dateCreated}
+              {moment(dateCreated).fromNow()}
             </Typography>
           </Box>
         </Box>

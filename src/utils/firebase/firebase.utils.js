@@ -15,9 +15,7 @@ import {
   doc,
   getFirestore,
   getDocs,
-  query,
   addDoc,
-  writeBatch,
   collection,
 } from "firebase/firestore";
 import {
@@ -25,7 +23,6 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
-  listAll,
 } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -41,7 +38,6 @@ const firebaseConfig = {
   measurementId: "G-QCM3ZXBZQL",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const storage = getStorage(app);
@@ -52,9 +48,10 @@ googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-//!~~~~~~~~~~~~~~~~~~~~~~~~~ Post Functions ~~~~~~~~~~~~~~~~~~~~~~~~~!//
-
-export const uploadPost = async (uid, objectToAdd, file) => {
+//!~~~~~~~~~~~~~~~~~~~~~~~~~ Post Function ~~~~~~~~~~~~~~~~~~~~~~~~~!//
+export const uploadPost = async (user, objectToAdd, file) => {
+  const { uid, displayName } = user;
+  const date = new Date();
   const storageRef = ref(storage, `/files/${uid}/${file.name}`);
   const uploadedImage = await uploadBytesResumable(storageRef, file);
   const path = uploadedImage.ref._location.path;
@@ -64,6 +61,8 @@ export const uploadPost = async (uid, objectToAdd, file) => {
     addDoc(collectionRef, {
       ...objectToAdd,
       imageUrl: url,
+      user: displayName,
+      dateCreated: date.toString(),
     });
   });
 };
@@ -73,7 +72,6 @@ export const getUserData = async (userAuth) => {
   const result = [];
   const querySnapshot = await getDocs(collection(db, `users/${uid}/posts`));
   querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
     result.push(doc.data());
   });
   return result;

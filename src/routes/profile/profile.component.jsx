@@ -2,6 +2,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import ProfilePost from "../../components/gallery/gallery.component";
 import { useContext } from "react";
 import { userPosts } from "../../contexts/userPosts.context";
+import { v4 as uuidv4 } from "uuid";
 
 import POSTS_DATA from "../../datas/POSTS_DATA";
 const Profile = () => {
@@ -112,7 +113,7 @@ const Profile = () => {
           flexWrap="wrap"
         >
           {postsList.map((post) => (
-            <ProfilePost key={post.id} post={post} />
+            <ProfilePost key={uuidv4()} post={post} />
           ))}
         </Box>
       </Box>

@@ -34,6 +34,7 @@ const App = () => {
             const result = await getUserData(user);
             setPostsList(result);
           };
+          console.log(user);
           data();
         } catch (err) {
           console.log(err);
