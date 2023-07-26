@@ -1,7 +1,11 @@
 import { Avatar, Box, Typography } from "@mui/material";
+import { useContext } from "react";
+import { userContext } from "../../contexts/user.context";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
-const ProfilePost = ({ post, user }) => {
+const ProfilePost = ({ post }) => {
+  const { user } = useContext(userContext);
+  const { photoURL, displayName } = user;
   const { likes, comments, imageUrl } = post;
   return (
     <Box
@@ -29,6 +33,7 @@ const ProfilePost = ({ post, user }) => {
       >
         <Box display="flex" alignItems="center">
           <Avatar
+            src={photoURL}
             sx={{
               width: "20px",
               height: "20px",
@@ -36,7 +41,7 @@ const ProfilePost = ({ post, user }) => {
             }}
           />
           <Typography variant="h5" fontWeight={500}>
-            {user ? user : "Erlindi Isaj"}
+            {displayName}
           </Typography>
         </Box>
         <Box display="flex">

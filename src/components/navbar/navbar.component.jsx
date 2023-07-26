@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { userContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
@@ -20,8 +21,10 @@ import { userSignOut } from "../../utils/firebase/firebase.utils";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { user } = useContext(userContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
+  const { photoURL } = user;
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -74,7 +77,7 @@ const Navbar = () => {
             </Search>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu}>
-                <Avatar />
+                <Avatar src={photoURL} />
               </IconButton>
             </Tooltip>
             <Menu

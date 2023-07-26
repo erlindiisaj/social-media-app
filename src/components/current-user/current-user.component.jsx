@@ -1,6 +1,10 @@
 import { Avatar, Box, Typography } from "@mui/material";
+import { userContext } from "../../contexts/user.context";
+import { useContext } from "react";
 
 const CurrentUser = () => {
+  const { user } = useContext(userContext);
+  const { photoURL, displayName } = user;
   return (
     <Box
       sx={{
@@ -13,10 +17,14 @@ const CurrentUser = () => {
         paddingLeft: "20px",
       }}
     >
-      <Avatar />
+      <Avatar src={photoURL} />
       <Box ml="10px">
-        <Typography fontWeight="600">Erlindi Isaj</Typography>
-        <Typography color="gray.main">@erlindiisaj</Typography>
+        <Typography fontWeight="600">
+          {displayName ? displayName : "User ID"}
+        </Typography>
+        <Typography color="gray.main">
+          @{displayName ? displayName.toLowerCase() : "userid"}
+        </Typography>
       </Box>
     </Box>
   );

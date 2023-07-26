@@ -1,12 +1,15 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import ProfilePost from "../../components/gallery/gallery.component";
 import { useContext } from "react";
+import { userContext } from "../../contexts/user.context";
 import { userPosts } from "../../contexts/userPosts.context";
 import { v4 as uuidv4 } from "uuid";
 
 import POSTS_DATA from "../../datas/POSTS_DATA";
 const Profile = () => {
   const { postsList } = useContext(userPosts);
+  const { user } = useContext(userContext);
+  const { displayName, photoURL } = user;
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
@@ -21,6 +24,7 @@ const Profile = () => {
         height="260px"
       >
         <Avatar
+          src={photoURL}
           style={{
             border: "4px solid #F5F5F7",
             width: "70px",
@@ -45,10 +49,10 @@ const Profile = () => {
       >
         <Box display="flex">
           <Typography variant="h3" fontWeight={600}>
-            Erlindi Isaj
+            {displayName}
           </Typography>
           <Typography ml={1} variant="h5">
-            @erlindiisaj
+            @{displayName}
           </Typography>
         </Box>
         <Box mt={1.5} display="flex">

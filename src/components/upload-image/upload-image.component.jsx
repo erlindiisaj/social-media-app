@@ -20,6 +20,7 @@ const CreatePost = () => {
   const [isSuccessAlertVisable, setIsSuccessAlertVisable] = useState(false);
   const [isFailedAlertVisable, setIsFailedAlertVisable] = useState(false);
   const { user } = useContext(userContext);
+  const { photoURL } = user;
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -100,7 +101,7 @@ const CreatePost = () => {
             gridColumn: "1/2",
           }}
         >
-          <Avatar />
+          <Avatar src={photoURL} />
         </Box>
         <Box
           sx={{

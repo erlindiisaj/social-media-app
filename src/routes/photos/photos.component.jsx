@@ -16,7 +16,7 @@ const Photos = () => {
       flexWrap="wrap"
     >
       {postsList.map((post) => (
-        <ProfilePost key={uuidv4()} user={post.user} post={post} />
+        <ProfilePost key={uuidv4()} post={post} />
       ))}
     </Box>
   );

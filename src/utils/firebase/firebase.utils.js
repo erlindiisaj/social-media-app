@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import Avatars from "../../datas/avatars";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -8,6 +9,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import {
   getDoc,
@@ -17,6 +19,7 @@ import {
   getDocs,
   addDoc,
   collection,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -48,6 +51,10 @@ googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
+function randomNumberInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 //!~~~~~~~~~~~~~~~~~~~~~~~~~ Post Function ~~~~~~~~~~~~~~~~~~~~~~~~~!//
 export const uploadPost = async (user, objectToAdd, file) => {
   const { uid, displayName } = user;
@@ -61,10 +68,15 @@ export const uploadPost = async (user, objectToAdd, file) => {
     addDoc(collectionRef, {
       ...objectToAdd,
       imageUrl: url,
-      user: displayName,
+      userName: displayName,
       dateCreated: date.toString(),
     });
   });
+};
+
+export const deletePost = async (uid) => {
+  const userDocRef = doc(db, `users/${uid}/posts`, uid);
+  return await deleteDoc(userDocRef);
 };
 
 export const getUserData = async (userAuth) => {
@@ -88,12 +100,20 @@ export const createUserDocumentFromAuth = async (
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
-
+    try {
+      let rand = randomNumberInRange(0, 7);
+      updateProfile(userAuth, {
+        photoURL: Avatars[rand],
+        displayName: "User ID",
+      });
+    } catch (err) {
+      console.log(err);
+    }
     try {
       await setDoc(userDocRef, {
-        displayName,
+        displayName: "User Id",
         email,
         createdAt,
         ...additionalInformation,

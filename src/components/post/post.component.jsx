@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import moment from "moment";
-
+import { deletePost } from "../../utils/firebase/firebase.utils";
+import { userContext } from "../../contexts/user.context";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ImageList from "@mui/material/ImageList";
@@ -15,9 +16,12 @@ import "./post.styles.scss";
 const options = ["Delete"];
 
 const Post = ({ post }) => {
-  const { user, dateCreated, description, likes, comments, imageUrl } = post;
+  const { user } = useContext(userContext);
+  const { userName, dateCreated, description, likes, comments, imageUrl } =
+    post;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
+  const { photoURL, displayName } = user;
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -25,6 +29,12 @@ const Post = ({ post }) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    console.log(post);
   };
 
   const handleLike = (e) => {
@@ -43,10 +53,10 @@ const Post = ({ post }) => {
         justifyContent="space-between"
       >
         <Box alignItems="center" display="flex">
-          <Avatar />
+          <Avatar src={photoURL} />
           <Box marginLeft={1.2}>
             <Typography fontWeight="600" variant="h4">
-              {user}
+              {userName}
             </Typography>
             <Typography color="gray.main" variant="h5">
               {moment(dateCreated).fromNow()}

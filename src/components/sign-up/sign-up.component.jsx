@@ -20,7 +20,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 
 const userInputInitial = {
-  name: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -32,7 +31,7 @@ const SignUp = () => {
   const { authState, setAuthSate } = useContext(authContext);
   const navigate = useNavigate();
 
-  const { name, email, password, confirmPassword } = userInput;
+  const { email, password, confirmPassword } = userInput;
 
   const onSignUpClickHandler = (e) => {
     e.preventDefault();
@@ -145,18 +144,6 @@ const SignUp = () => {
       >
         {/* Email and Password Inputs */}
         <form onSubmit={handleOnSubmit}>
-          <TextField
-            required
-            id="name"
-            name="name"
-            type="text"
-            fullWidth={true}
-            style={{ marginBottom: "15px" }}
-            label="Name"
-            variant="filled"
-            onChange={handleInputChange}
-            value={name}
-          />
           <TextField
             required
             id="email"
