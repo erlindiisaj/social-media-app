@@ -20,6 +20,7 @@ import {
   addDoc,
   collection,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -55,7 +56,7 @@ function randomNumberInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//!~~~~~~~~~~~~~~~~~~~~~~~~~ Post Function ~~~~~~~~~~~~~~~~~~~~~~~~~!//
+//!~~~~~~~~~~~~~~~~~~~~~~~~~ Upload Post Function ~~~~~~~~~~~~~~~~~~~~~~~~~!//
 export const uploadPost = async (user, objectToAdd, file) => {
   const { uid, displayName } = user;
   const date = new Date();
@@ -74,17 +75,17 @@ export const uploadPost = async (user, objectToAdd, file) => {
   });
 };
 
-export const deletePost = async (uid) => {
-  const userDocRef = doc(db, `users/${uid}/posts`, uid);
+export const deletePost = async (uid, id) => {
+  const userDocRef = doc(db, `users/${uid}/posts`, id);
   return await deleteDoc(userDocRef);
 };
 
-export const getUserData = async (userAuth) => {
+export const getUsersPosts = async (userAuth) => {
   const { uid } = userAuth;
   const result = [];
   const querySnapshot = await getDocs(collection(db, `users/${uid}/posts`));
   querySnapshot.forEach((doc) => {
-    result.push(doc.data());
+    result.push({ id: doc.id, data: doc.data() });
   });
   return result;
 };

@@ -18,7 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { userSignOut } from "../../utils/firebase/firebase.utils";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Settings", "Logout"];
 
 const Navbar = () => {
   const { user } = useContext(userContext);

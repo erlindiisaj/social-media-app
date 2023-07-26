@@ -3,9 +3,8 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Auth from "./pages/auth/auth.component";
 import {
-  addPostToDatabase,
   createUserDocumentFromAuth,
-  getUserData,
+  getUsersPosts,
 } from "./utils/firebase/firebase.utils";
 
 import { ColorModeContext } from "./theme";
@@ -31,7 +30,7 @@ const App = () => {
         createUserDocumentFromAuth(user);
         try {
           const data = async () => {
-            const result = await getUserData(user);
+            const result = await getUsersPosts(user);
             setPostsList(result);
           };
           console.log(user);
@@ -54,6 +53,7 @@ const App = () => {
           <Route path="user" element={<User />}>
             <Route path=":page" element={null} />
           </Route>
+          <Route path="settings" element={null} />
         </Routes>
       </Suspense>
     </ThemeProvider>

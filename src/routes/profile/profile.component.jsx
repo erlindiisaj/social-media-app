@@ -117,7 +117,7 @@ const Profile = () => {
           flexWrap="wrap"
         >
           {postsList.map((post) => (
-            <ProfilePost key={uuidv4()} post={post} />
+            <ProfilePost key={post.id} post={post.data} />
           ))}
         </Box>
       </Box>

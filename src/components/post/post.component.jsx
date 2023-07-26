@@ -15,8 +15,9 @@ import "./post.styles.scss";
 
 const options = ["Delete"];
 
-const Post = ({ post }) => {
+const Post = ({ post, id }) => {
   const { user } = useContext(userContext);
+  const { uid } = user;
   const { userName, dateCreated, description, likes, comments, imageUrl } =
     post;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,13 +28,14 @@ const Post = ({ post }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = async (e) => {
+    e.preventDefault();
     setAnchorEl(null);
+    deletePost(uid, id);
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
-
     console.log(post);
   };
 

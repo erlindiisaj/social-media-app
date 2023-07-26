@@ -1,13 +1,16 @@
 import { Box } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { userContext } from "../../contexts/user.context";
 import { userPosts } from "../../contexts/userPosts.context";
 import CreatePost from "../../components/upload-image/upload-image.component";
 import Post from "../../components/post/post.component";
 import { v4 as uuidv4 } from "uuid";
 import StoriesContainer from "../../components/stories-container/stories-container.component";
+import { onPostListChange } from "../../utils/firebase/firebase.utils";
 
 const Homepage = () => {
   const { postsList } = useContext(userPosts);
+
   return (
     <Box
       sx={{
@@ -30,11 +33,11 @@ const Homepage = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column-reverse",
+          flexDirection: "column",
         }}
       >
         {postsList.map((post) => (
-          <Post key={uuidv4()} post={post} />
+          <Post key={post.id} id={post.id} post={post.data} />
         ))}
       </Box>
     </Box>
