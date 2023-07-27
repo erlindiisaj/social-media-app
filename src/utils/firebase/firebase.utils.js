@@ -127,6 +127,11 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
+export const usersDataListener = (uid, callback) => {
+  const docRef = doc(db, "users", uid);
+  onSnapshot(docRef, callback);
+};
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 

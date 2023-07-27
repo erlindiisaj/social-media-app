@@ -6,10 +6,13 @@ import CreatePost from "../../components/upload-image/upload-image.component";
 import Post from "../../components/post/post.component";
 import { v4 as uuidv4 } from "uuid";
 import StoriesContainer from "../../components/stories-container/stories-container.component";
-import { onPostListChange } from "../../utils/firebase/firebase.utils";
+import { usersDataListener } from "../../utils/firebase/firebase.utils";
 
 const Homepage = () => {
   const { postsList } = useContext(userPosts);
+
+  const { user } = useContext(userContext);
+  const { uid } = user;
 
   return (
     <Box
