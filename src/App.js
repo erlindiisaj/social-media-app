@@ -1,21 +1,24 @@
-import "./App.css";
-import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import Auth from "./pages/auth/auth.component";
 import {
   createUserDocumentFromAuth,
   getUsersPosts,
+  onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
 
-import { ColorModeContext } from "./theme";
-import { CssBaseline, createTheme } from "@mui/material";
-import { ThemeProvider } from "@emotion/react";
+import "./App.css";
+import { lazy, Suspense, useContext, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+
 import { userContext } from "./contexts/user.context";
-import { useContext, useEffect } from "react";
-import { onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
-import Loading from "./components/loading/loading.component";
 import { userPosts } from "./contexts/userPosts.context";
 
+import { ColorModeContext } from "./theme";
+import { ThemeProvider } from "@emotion/react";
+import { CssBaseline, createTheme } from "@mui/material";
+
+import Loading from "./components/loading/loading.component";
+
+import Auth from "./pages/auth/auth.component";
+import Settings from "./pages/settings/settings.component";
 const User = lazy(() => import("./pages/user/user.component"));
 
 const App = () => {
@@ -33,10 +36,9 @@ const App = () => {
             const result = await getUsersPosts(user);
             setPostsList(result);
           };
-          console.log(user);
           data();
         } catch (err) {
-          console.log(err);
+          alert(err);
         }
       }
       setUser(user);
@@ -53,7 +55,7 @@ const App = () => {
           <Route path="user" element={<User />}>
             <Route path=":page" element={null} />
           </Route>
-          <Route path="settings" element={null} />
+          <Route path="settings" element={<Settings />} />
         </Routes>
       </Suspense>
     </ThemeProvider>

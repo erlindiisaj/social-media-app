@@ -31,9 +31,16 @@ const Navbar = () => {
   const handleCloseUserMenu = async (e) => {
     e.preventDefault();
     setAnchorElUser(null);
-    if (e.target.id === "Logout") {
+    const { id } = e.target;
+    if (id === "Logout") {
       await userSignOut();
       navigate("/");
+    }
+    if (id === "Settings") {
+      navigate("/settings");
+    }
+    if (id === "Profile") {
+      navigate("/user/profile");
     }
   };
 
