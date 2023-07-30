@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
 import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";
+import SettingsMenu from "../settings-menu/settings-menu.component";
 
 import SearchIcon from "@mui/icons-material/Search";
 import AppBar from "@mui/material/AppBar";
@@ -82,39 +83,7 @@ const Navbar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu}>
-                <Avatar src={photoURL} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  onClick={handleCloseUserMenu}
-                  id={setting}
-                  key={setting}
-                >
-                  <Typography id={setting} textAlign="center">
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <SettingsMenu />
           </Box>
         </Toolbar>
       </Container>

@@ -19,6 +19,16 @@
     cursor: pointer;
     z-index: 1;
     transition: .3s ease;
+
+    &:hover{
+    border-left: 1px solid rgba($color: #5632FA, $alpha: .5);
+        a {
+            color: rgba($color: #5632FA, $alpha: .5);
+        }
+        path {
+            fill: rgba($color: #5632FA, $alpha: .5);
+        }
+    }
     
     a {
         display: flex;
@@ -29,9 +39,7 @@
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
-        svg {
-            
-        }
+        
     }
 }
 
@@ -52,4 +60,13 @@
         
         color: #5632FA;
     }
+    &:hover{
+        border-left: 1px solid rgba($color: #5632FA, $alpha: 1);
+            a {
+                color: rgba($color: #5632FA, $alpha: 1);
+            }
+            path {
+                fill: rgba($color: #5632FA, $alpha: 1);
+            }
+        }
 }
