@@ -21,13 +21,10 @@
     transition: .3s ease;
 
     &:hover{
-    border-left: 1px solid rgba($color: #5632FA, $alpha: .5);
-        a {
-            color: rgba($color: #5632FA, $alpha: .5);
-        }
-        path {
-            fill: rgba($color: #5632FA, $alpha: .5);
-        }
+    border-left: 1px solid rgba($color: #5632FA, $alpha: 1);
+    background: #FCFCFC;
+
+      
     }
     
     a {

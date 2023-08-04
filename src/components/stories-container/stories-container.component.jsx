@@ -1,7 +1,11 @@
-import "./stories-container.styles.scss";
 import { useState } from "react";
+
 import { Avatar, Typography } from "@mui/material";
+
 import { motion } from "framer-motion";
+
+import "./stories-container.styles.scss";
+
 import STORY_DATA from "../../datas/STORY_DATA";
 
 const StoriesContainer = () => {

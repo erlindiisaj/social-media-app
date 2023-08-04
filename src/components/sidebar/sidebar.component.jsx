@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+
+import { Link, useParams } from "react-router-dom";
+
 import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 import { ReactComponent as ProfileSVG } from "../../Images/user.svg";
 import { ReactComponent as HomeSVG } from "../../Images/home.svg";

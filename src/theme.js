@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 
-//color design tokens
 export const tokens = (mode) => ({
   ...(mode === "light"
     ? {
@@ -88,12 +87,13 @@ export const themeSettings = (mode) => {
             },
             gray: {
               main: colors.gray[500],
-              light: colors.gray[200],
+              light: colors.gray[100],
               dark: colors.gray[600],
             },
             black: {
               main: colors.black[500],
               light: colors.black[200],
+              extraLight: colors.black[100],
             },
             white: {
               main: colors.white[500],

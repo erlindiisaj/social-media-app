@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { useContext } from "react";
-import { userPosts } from "../../contexts/userPosts.context";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import ProfilePost from "../../components/gallery/gallery.component";
+import { userContext } from "../../contexts/user.context";
 
 const Photos = () => {
-  const { postsList } = useContext(userPosts);
+  const { postsList } = useContext(userContext);
 
   if (postsList) {
     return (

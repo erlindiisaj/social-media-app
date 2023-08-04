@@ -1,12 +1,17 @@
-import { Avatar, Box, Button, Alert } from "@mui/material";
-import "./upload-image.styles.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+
 import { userContext } from "../../contexts/user.context";
-import { useState } from "react";
+
 import { uploadPost } from "../../utils/firebase/firebase.utils";
+
+import { Avatar, Box, Button, Alert } from "@mui/material";
+
 import Snackbar from "@mui/material/Snackbar";
-import { ReactComponent as UploadSVG } from "../../Images/upload-img.svg";
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
+
+import { ReactComponent as UploadSVG } from "../../Images/upload-img.svg";
+
+import "./upload-image.styles.scss";
 
 const initialObjectToAdd = {
   description: "",

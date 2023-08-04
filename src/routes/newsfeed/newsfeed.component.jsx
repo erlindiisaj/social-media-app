@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { userPosts } from "../../contexts/userPosts.context";
+
+import { userContext } from "../../contexts/user.context";
 
 import LinearProgress from "@mui/material/LinearProgress";
 import Post from "../../components/post/post.component";
 
 const Newsfeed = () => {
-  const { postsList } = useContext(userPosts);
+  const { postsList } = useContext(userContext);
   if (postsList) {
     return (
       <div>

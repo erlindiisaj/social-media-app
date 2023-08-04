@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Avatar,
   Typography,
@@ -7,6 +8,7 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
+
 import { MoreHoriz } from "@mui/icons-material";
 import "./suggest-user.styles.scss";
 

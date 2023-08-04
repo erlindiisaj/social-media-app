@@ -1,8 +1,8 @@
-import Homepage from "../../routes/homepage/homepage.component";
-import Profile from "../../routes/profile/profile.component";
-import Newsfeed from "../../routes/newsfeed/newsfeed.component";
 import Photos from "../../routes/photos/photos.component";
 import WrongPath from "../wrong-path/wrong-path.component";
+import Profile from "../../routes/profile/profile.component";
+import Homepage from "../../routes/homepage/homepage.component";
+import Newsfeed from "../../routes/newsfeed/newsfeed.component";
 
 const RouteDisplay = ({ page }) => {
   switch (page) {
@@ -14,6 +14,7 @@ const RouteDisplay = ({ page }) => {
       return <Newsfeed />;
     case "photos":
       return <Photos />;
+
     default:
       return <WrongPath />;
   }

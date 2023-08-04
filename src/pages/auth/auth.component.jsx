@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { authContext } from "../../contexts/auth.context";
+
 import SignUp from "../../components/sign-up/sign-up.component";
 import SignIn from "../../components/sign-in/sign-in.component";
 

@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import { authContext } from "../../contexts/auth.context";
 
 import {
@@ -7,21 +9,21 @@ import {
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 
-import "./sign-in.styles.scss";
-
 import { ReactComponent as Logo } from "../../Images/logo.svg";
 import { ReactComponent as Line } from "../../Images/line.svg";
 import { ReactComponent as GoogleIcon } from "../../Images/google-icon.svg";
 
-import { Box, Button, Typography, Link } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import FilledInput from "@mui/material/FilledInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import FilledInput from "@mui/material/FilledInput";
+import Visibility from "@mui/icons-material/Visibility";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Box, Button, Typography, Link } from "@mui/material";
+
+import "./sign-in.styles.scss";
 
 const userInputInitial = {
   email: "",

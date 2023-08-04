@@ -1,6 +1,8 @@
-import { Avatar, Box, Typography } from "@mui/material";
 import { useContext } from "react";
+
 import { userContext } from "../../contexts/user.context";
+
+import { Avatar, Box, Typography } from "@mui/material";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 const ProfilePost = ({ post }) => {

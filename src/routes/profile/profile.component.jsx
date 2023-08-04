@@ -3,11 +3,9 @@ import ProfilePost from "../../components/gallery/gallery.component";
 
 import { useContext } from "react";
 import { userContext } from "../../contexts/user.context";
-import { userPosts } from "../../contexts/userPosts.context";
 
 const Profile = () => {
-  const { postsList } = useContext(userPosts);
-  const { user } = useContext(userContext);
+  const { user, postsList } = useContext(userContext);
   const { displayName, photoURL } = user;
 
   if (postsList) {

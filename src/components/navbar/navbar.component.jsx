@@ -1,49 +1,19 @@
-import { useState, useContext } from "react";
-import { userContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
 
-import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
-import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";
 import SettingsMenu from "../settings-menu/settings-menu.component";
 
-import SearchIcon from "@mui/icons-material/Search";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { userSignOut } from "../../utils/firebase/firebase.utils";
+import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
 
-const settings = ["Profile", "Settings", "Logout"];
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import SearchIcon from "@mui/icons-material/Search";
+
+import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";
 
 const Navbar = () => {
-  const { user } = useContext(userContext);
-  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
-  const { photoURL } = user;
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = async (e) => {
-    e.preventDefault();
-    setAnchorElUser(null);
-    const { id } = e.target;
-    if (id === "Logout") {
-      await userSignOut();
-      navigate("/");
-    }
-    if (id === "Settings") {
-      navigate("/settings");
-    }
-    if (id === "Profile") {
-      navigate("/user/profile");
-    }
-  };
 
   return (
     <AppBar
@@ -71,7 +41,7 @@ const Navbar = () => {
           }}
           disableGutters
         >
-          <Logo />
+          <Logo onClick={() => navigate("/user/home")} />
           <Box display={"flex"} alignItems="center" height="100%">
             <Search>
               <SearchIconWrapper>

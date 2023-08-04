@@ -1,6 +1,8 @@
-import { Avatar, Box, Typography } from "@mui/material";
-import { userContext } from "../../contexts/user.context";
 import { useContext } from "react";
+
+import { userContext } from "../../contexts/user.context";
+
+import { Avatar, Box, Typography } from "@mui/material";
 
 const CurrentUser = () => {
   const { user } = useContext(userContext);
@@ -18,7 +20,7 @@ const CurrentUser = () => {
       }}
     >
       <Avatar src={photoURL} />
-      <Box ml="10px">
+      <Box ml={1}>
         <Typography fontWeight="600">
           {displayName ? displayName : "User ID"}
         </Typography>

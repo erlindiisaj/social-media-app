@@ -1,19 +1,21 @@
 import { useState, useContext } from "react";
-import moment from "moment";
-import { deletePost } from "../../utils/firebase/firebase.utils";
+
+import moment from "moment"; //? Posts date library
+
 import { userContext } from "../../contexts/user.context";
+
+import { deletePost } from "../../utils/firebase/firebase.utils";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 import { MoreHoriz } from "@mui/icons-material";
 import { Typography, Box, Avatar, Button, IconButton } from "@mui/material";
-import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
-import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
-import "./post.styles.scss";
 
-const options = ["Delete"];
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
+import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
+
+import "./post.styles.scss";
 
 const Post = ({ post, id }) => {
   const { user } = useContext(userContext);
@@ -22,21 +24,21 @@ const Post = ({ post, id }) => {
     post;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
-  const { photoURL, displayName } = user;
+  const { photoURL } = user;
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = async (e) => {
+  const handleDeleteAndClose = async (e) => {
     e.preventDefault();
     setAnchorEl(null);
     deletePost(uid, id);
   };
 
-  const handleDelete = async (e) => {
+  const handleClose = async (e) => {
     e.preventDefault();
-    console.log(post);
+    setAnchorEl(null);
   };
 
   const handleLike = (e) => {
@@ -91,15 +93,7 @@ const Post = ({ post, id }) => {
               },
             }}
           >
-            {options.map((option) => (
-              <MenuItem
-                key={option}
-                selected={option === "Pyxis"}
-                onClick={handleClose}
-              >
-                {option}
-              </MenuItem>
-            ))}
+            <MenuItem onClick={handleDeleteAndClose}>Delete</MenuItem>
           </Menu>
         </div>
       </Box>
@@ -122,11 +116,7 @@ const Post = ({ post, id }) => {
         <Box mt={2} display="flex">
           <Button
             onClick={handleLike}
-            color="primary.main"
             variant="soft"
-            sx={{
-              color: "#5632fa",
-            }}
             startIcon={
               isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />
             }
@@ -135,10 +125,8 @@ const Post = ({ post, id }) => {
           </Button>
           <Button
             sx={{
-              color: "#5632fa",
               marginLeft: "20px",
             }}
-            color="primary.main"
             variant="soft"
             startIcon={<ChatBubbleOutlineRoundedIcon />}
           >

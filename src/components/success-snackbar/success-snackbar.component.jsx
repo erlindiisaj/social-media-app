@@ -1,6 +1,6 @@
 import { Alert } from "@mui/material";
 
-const AlertSnackbar = () => {
+const SuccessSnackbar = () => {
   return (
     <Alert severity="success" sx={{ width: "100%" }}>
       File uploaded successfully!
@@ -8,4 +8,4 @@ const AlertSnackbar = () => {
   );
 };
 
-export default AlertSnackbar;
+export default SuccessSnackbar;

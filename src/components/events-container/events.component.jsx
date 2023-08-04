@@ -1,10 +1,12 @@
-import { Box, Typography } from "@mui/material";
 import Event from "../event/event.components";
+
 import EVENTS_DATA from "../../datas/EVENTS_DATA";
 
-const Events = ({ event }) => {
+import { Box, Typography } from "@mui/material";
+
+const Events = () => {
   return (
-    <Box marginTop="30px">
+    <Box mt={3}>
       <Typography variant="h4" color="black.light">
         EVENTS OF THE MONTH
       </Typography>

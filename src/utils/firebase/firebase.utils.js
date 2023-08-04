@@ -117,6 +117,9 @@ export const createUserDocumentFromAuth = async (
         displayName: "User Id",
         email,
         createdAt,
+        followers: "0",
+        posts: "0",
+        likes: "0",
         ...additionalInformation,
       });
     } catch (error) {
@@ -127,9 +130,10 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
-export const usersDataListener = (uid, callback) => {
-  const docRef = doc(db, "users", uid);
-  onSnapshot(docRef, callback);
+export const changeUsersDisplayName = (userAuth, name) => {
+  updateProfile(userAuth, {
+    displayName: name,
+  });
 };
 
 export const signInWithGooglePopup = () =>
