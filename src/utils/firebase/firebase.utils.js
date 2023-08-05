@@ -20,7 +20,6 @@ import {
   addDoc,
   collection,
   deleteDoc,
-  onSnapshot,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -58,17 +57,19 @@ function randomNumberInRange(min, max) {
 
 //!~~~~~~~~~~~~~~~~~~~~~~~~~ Upload Post Function ~~~~~~~~~~~~~~~~~~~~~~~~~!//
 export const uploadPost = async (user, objectToAdd, file) => {
-  const { uid, displayName } = user;
+  const { uid, displayName, photoURL } = user;
   const date = new Date();
   const storageRef = ref(storage, `/files/${uid}/${file.name}`);
   const uploadedImage = await uploadBytesResumable(storageRef, file);
   const path = uploadedImage.ref._location.path;
   const imageRef = ref(storage, path);
-  const collectionRef = collection(db, `users/${uid}/posts`);
+  const collectionRef = collection(db, "/posts");
   getDownloadURL(imageRef).then((url) => {
     addDoc(collectionRef, {
       ...objectToAdd,
+      id: uid,
       imageUrl: url,
+      avatarURL: photoURL,
       userName: displayName,
       dateCreated: date.toString(),
     });
@@ -76,14 +77,19 @@ export const uploadPost = async (user, objectToAdd, file) => {
 };
 
 export const deletePost = async (uid, id) => {
-  const userDocRef = doc(db, `users/${uid}/posts`, id);
-  return await deleteDoc(userDocRef);
+  const userPostDocRef = doc(db, `users/${uid}/posts`, id);
+  const postDocRef = doc(db, `/posts`, id);
+  try {
+    await deleteDoc(userPostDocRef);
+    await deleteDoc(postDocRef);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const getUsersPosts = async (userAuth) => {
-  const { uid } = userAuth;
+export const getPosts = async () => {
   const result = [];
-  const querySnapshot = await getDocs(collection(db, `users/${uid}/posts`));
+  const querySnapshot = await getDocs(collection(db, `/posts`));
   querySnapshot.forEach((doc) => {
     result.push({ id: doc.id, data: doc.data() });
   });

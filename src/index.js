@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { ColorModeContextProvider } from "./theme";
 import { AuthContextProvider } from "./contexts/auth.context";
+import { PostsListProvider } from "./contexts/social-media-posts.context";
 import { UserContextProvider } from "./contexts/user.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,7 +16,9 @@ root.render(
       <ColorModeContextProvider>
         <UserContextProvider>
           <AuthContextProvider>
-            <App />
+            <PostsListProvider>
+              <App />
+            </PostsListProvider>
           </AuthContextProvider>
         </UserContextProvider>
       </ColorModeContextProvider>

@@ -1,22 +1,31 @@
 import { useContext } from "react";
 
-import { userContext } from "../../contexts/user.context";
-
-import LinearProgress from "@mui/material/LinearProgress";
 import Post from "../../components/post/post.component";
+import { Alert } from "@mui/material";
+import { postsListContext } from "../../contexts/social-media-posts.context";
 
 const Newsfeed = () => {
-  const { postsList } = useContext(userContext);
-  if (postsList) {
+  const { postsList } = useContext(postsListContext);
+
+  if (postsList.length === 0) {
     return (
-      <div>
-        {postsList.map((post) => (
-          <Post key={post.id} id={post.id} post={post.data} />
-        ))}
-      </div>
+      <Alert
+        sx={{
+          height: "50px",
+        }}
+        severity="warning"
+      >
+        There are no posts to show!
+      </Alert>
     );
   }
-  return <LinearProgress />;
+  return (
+    <div>
+      {postsList.map((post) => (
+        <Post key={post.id} id={post.id} post={post.data} />
+      ))}
+    </div>
+  );
 };
 
 export default Newsfeed;

@@ -1,6 +1,6 @@
 import {
   createUserDocumentFromAuth,
-  getUsersPosts,
+  getPosts,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
 
@@ -9,6 +9,7 @@ import { lazy, Suspense, useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { userContext } from "./contexts/user.context";
+import { postsListContext } from "./contexts/social-media-posts.context";
 
 import { ColorModeContext } from "./theme";
 import { ThemeProvider } from "@emotion/react";
@@ -23,7 +24,8 @@ const LoggedInUser = lazy(() =>
 );
 
 const App = () => {
-  const { user, setUser, setPostsList } = useContext(userContext);
+  const { user, setUser, setUserPostsList } = useContext(userContext);
+  const { setPostsList } = useContext(postsListContext);
   const { settings } = useContext(ColorModeContext);
   const theme = createTheme(settings);
 
@@ -33,8 +35,15 @@ const App = () => {
         createUserDocumentFromAuth(user);
         try {
           const data = async () => {
-            const result = await getUsersPosts(user);
-            setPostsList(result);
+            const userPostsListArray = [];
+            const postsData = await getPosts();
+            postsData.map((post) => {
+              if (post.data.id === user.uid) {
+                userPostsListArray.push(post);
+              }
+            });
+            setUserPostsList(userPostsListArray);
+            setPostsList(postsData);
           };
           console.log(user);
 

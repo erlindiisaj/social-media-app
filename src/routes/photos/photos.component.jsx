@@ -1,14 +1,13 @@
-import { Box } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import { useContext } from "react";
-import LinearProgress from "@mui/material/LinearProgress";
 
 import ProfilePost from "../../components/gallery/gallery.component";
 import { userContext } from "../../contexts/user.context";
 
 const Photos = () => {
-  const { postsList } = useContext(userContext);
+  const { userPostsList } = useContext(userContext);
 
-  if (postsList) {
+  if (userPostsList.length !== 0) {
     return (
       <Box
         width="100%"
@@ -16,13 +15,22 @@ const Photos = () => {
         justifyContent="space-around"
         flexWrap="wrap"
       >
-        {postsList.map((post) => (
-          <ProfilePost key={post.id} post={post.data} />
+        {userPostsList.map((post) => (
+          <ProfilePost key={post.id} id={post.id} post={post.data} />
         ))}
       </Box>
     );
   }
-  return <LinearProgress />;
+  return (
+    <Alert
+      sx={{
+        height: "50px",
+      }}
+      severity="warning"
+    >
+      There are no posts to show!
+    </Alert>
+  );
 };
 
 export default Photos;
