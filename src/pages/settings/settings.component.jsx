@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { userContext } from "../../contexts/user.context";
 
@@ -11,8 +11,14 @@ import Navbar from "../../components/navbar/navbar.component";
 
 const Settings = () => {
   const { user } = useContext(userContext);
-  const { photoURL } = user;
-  const [fullName, setFullName] = useState("User Name");
+  const { photoURL, displayName, email } = user;
+  const [fullName, setFullName] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+
+  useEffect(() => {
+    setFullName(displayName);
+    setEmailValue(email);
+  }, [user]);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -129,7 +135,8 @@ const Settings = () => {
                 label="Email"
                 type="text"
                 required
-                value="userid@email.com"
+                onChange={(e) => setEmailValue(e.target.value)}
+                value={emailValue}
                 disabled
               />
               <Button
