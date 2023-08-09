@@ -8,10 +8,12 @@ import { Avatar, Box, Button, Alert } from "@mui/material";
 
 import Snackbar from "@mui/material/Snackbar";
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { ReactComponent as UploadSVG } from "../../Images/upload-img.svg";
 
 import "./upload-image.styles.scss";
+import SnackbarAlert from "../snackbar-alert/snackbar-alert.component";
 
 const initialObjectToAdd = {
   description: "",
@@ -22,8 +24,9 @@ const initialObjectToAdd = {
 const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [objectToAdd, setObjectToAdd] = useState(initialObjectToAdd);
-  const [isSuccessAlertVisable, setIsSuccessAlertVisable] = useState(false);
-  const [isFailedAlertVisable, setIsFailedAlertVisable] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [failedOpen, setFailedOpen] = useState(false);
   const { user } = useContext(userContext);
   const { photoURL } = user;
 
@@ -33,8 +36,8 @@ const CreatePost = () => {
   };
 
   const handleClose = () => {
-    setIsFailedAlertVisable(false);
-    setIsSuccessAlertVisable(false);
+    setSuccessOpen(false);
+    setFailedOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -43,14 +46,19 @@ const CreatePost = () => {
       alert("Please select a photo");
       return;
     }
+    setIsLoading(true);
     try {
       await uploadPost(user, objectToAdd, file);
-      setIsSuccessAlertVisable(true);
+      setIsLoading(false);
+      setSuccessOpen(true);
       setObjectToAdd({ description: "" });
       setFile(null);
     } catch (err) {
+      setIsLoading(false);
+      setFailedOpen(true);
+      setFile(null);
+      setObjectToAdd({ description: "" });
       console.log(err);
-      setIsFailedAlertVisable(true);
     }
   };
 
@@ -66,36 +74,18 @@ const CreatePost = () => {
   return (
     <form onSubmit={handleSubmit} className="upload-image-form">
       <Box className="inputfile-container">
-        <Snackbar
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          open={isSuccessAlertVisable}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            File uploaded successfully!
-          </Alert>
-        </Snackbar>
-        <Snackbar
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          open={isFailedAlertVisable}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            Error! File not uploaded!
-          </Alert>
-        </Snackbar>
+        <SnackbarAlert
+          isOpen={successOpen}
+          handleClose={handleClose}
+          message="File uploaded successfully!"
+          type="success"
+        />
+        <SnackbarAlert
+          isOpen={failedOpen}
+          handleClose={handleClose}
+          message="File upload failed!"
+          type="error"
+        />
 
         <Box
           sx={{
@@ -140,7 +130,11 @@ const CreatePost = () => {
             }}
             variant="contained"
           >
-            Post it!
+            {isLoading ? (
+              <CircularProgress size="20px" color="white" />
+            ) : (
+              "Post it!"
+            )}
           </Button>
         </Box>
 

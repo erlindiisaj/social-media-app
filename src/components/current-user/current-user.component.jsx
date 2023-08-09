@@ -25,7 +25,10 @@ const CurrentUser = () => {
           {displayName ? displayName : "User ID"}
         </Typography>
         <Typography color="gray.main">
-          @{displayName ? displayName.toLowerCase() : "userid"}
+          @
+          {displayName
+            ? displayName.split(" ").join("").toLowerCase()
+            : "userid"}
         </Typography>
       </Box>
     </Box>

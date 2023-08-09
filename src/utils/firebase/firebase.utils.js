@@ -10,6 +10,7 @@ import {
   onAuthStateChanged,
   signOut,
   updateProfile,
+  deleteUser,
 } from "firebase/auth";
 import {
   getDoc,
@@ -79,12 +80,8 @@ export const uploadPost = async (user, objectToAdd, file) => {
 export const deletePost = async (uid, id) => {
   const userPostDocRef = doc(db, `users/${uid}/posts`, id);
   const postDocRef = doc(db, `/posts`, id);
-  try {
-    await deleteDoc(userPostDocRef);
-    await deleteDoc(postDocRef);
-  } catch (err) {
-    console.log(err);
-  }
+  await deleteDoc(userPostDocRef);
+  await deleteDoc(postDocRef);
 };
 
 export const getPosts = async () => {
@@ -136,10 +133,15 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
-export const changeUsersDisplayName = (userAuth, name) => {
-  updateProfile(userAuth, {
+export const changeUsersDisplayName = async (userAuth, name) => {
+  return await updateProfile(userAuth, {
     displayName: name,
   });
+};
+
+export const deleteAccount = async () => {
+  const user = auth.currentUser;
+  return await deleteUser(user);
 };
 
 export const signInWithGooglePopup = () =>

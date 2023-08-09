@@ -1,7 +1,8 @@
 import { Avatar, Box, Typography } from "@mui/material";
-import ProfilePost from "../../components/gallery/gallery.component";
+import Gallery from "../../components/gallery/gallery.component";
+import SnackbarAlert from "../../components/snackbar-alert/snackbar-alert.component";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { userContext } from "../../contexts/user.context";
 
 const Profile = () => {
@@ -49,7 +50,7 @@ const Profile = () => {
             {displayName}
           </Typography>
           <Typography ml={1} variant="h5">
-            @{displayName}
+            @{displayName.split(" ").join("").toLowerCase()}
           </Typography>
         </Box>
         <Box mt={1.5} display="flex">
@@ -114,7 +115,7 @@ const Profile = () => {
           flexWrap="wrap"
         >
           {userPostsList.map((post) => (
-            <ProfilePost key={post.id} id={post.id} post={post.data} />
+            <Gallery key={post.id} id={post.id} post={post.data} />
           ))}
         </Box>
       </Box>

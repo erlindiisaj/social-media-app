@@ -48,3 +48,10 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+export const StyledLogo = styled("div")(({ theme }) => ({
+  height: "40px",
+  "&:hover": {
+    cursor: "pointer",
+  },
+}));

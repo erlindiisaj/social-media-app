@@ -6,14 +6,19 @@ import { changeUsersDisplayName } from "../../utils/firebase/firebase.utils";
 
 import TextField from "@mui/material/TextField";
 import { Avatar, Box, Button, Typography } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import Navbar from "../../components/navbar/navbar.component";
+import SnackbarAlert from "../../components/snackbar-alert/snackbar-alert.component";
+import DeleteConfirmation from "../../components/delete-confirmation/delete-confirmation.component";
 
 const Settings = () => {
   const { user } = useContext(userContext);
-  const { photoURL, displayName, email } = user;
   const [fullName, setFullName] = useState("");
   const [emailValue, setEmailValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const { photoURL, displayName, email } = user;
 
   useEffect(() => {
     setFullName(displayName);
@@ -26,10 +31,22 @@ const Settings = () => {
     setFullName(value);
   };
 
-  const handleSubmit = () => {
-    changeUsersDisplayName(user, fullName);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      await changeUsersDisplayName(user, fullName);
+      setIsLoading(false);
+      setIsOpen(true);
+    } catch (err) {
+      alert(err);
+      setIsLoading(false);
+    }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
     <>
       <Navbar />
@@ -41,6 +58,12 @@ const Settings = () => {
         height="fit-content"
         alignItems="center"
       >
+        <SnackbarAlert
+          isOpen={isOpen}
+          handleClose={handleClose}
+          message={`Username changed to ${fullName}`}
+          type="success"
+        />
         <Box
           width="80%"
           height="350px"
@@ -89,69 +112,87 @@ const Settings = () => {
                 Change
               </Button>
             </Box>
-            <Box display="flex" alignItems="center" width="100%">
-              <TextField
-                onChange={handleInputChange}
-                sx={{
-                  width: "80%",
-                }}
-                InputProps={{
-                  sx: {
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                width: "100%",
+              }}
+            >
+              <Box display="flex" alignItems="center" width="100%">
+                <TextField
+                  onChange={handleInputChange}
+                  sx={{
+                    width: "80%",
+                  }}
+                  InputProps={{
+                    sx: {
+                      borderRadius: "12px",
+                      marginRight: "20px",
+                    },
+                  }}
+                  id="outlined-search"
+                  label="Full Name"
+                  value={fullName}
+                  type="text"
+                  required
+                />
+                <Button
+                  type="submit"
+                  sx={{
                     borderRadius: "12px",
-                    marginRight: "20px",
-                  },
-                }}
-                id="outlined-search"
-                label="Full Name"
-                value={fullName}
-                type="text"
-              />
-              <Button
-                onClick={handleSubmit}
-                sx={{
-                  borderRadius: "12px",
-                  color: "black.main",
-                  height: "37px",
-                  "&:hover": {
-                    backgroundColor: "gray.light",
-                  },
-                }}
-              >
-                Save
-              </Button>
-            </Box>{" "}
-            <Box display="flex" alignItems="center" width="100%">
-              <TextField
-                sx={{
-                  width: "80%",
-                }}
-                InputProps={{
-                  sx: {
+                    color: "black.main",
+                    height: "37px",
+                    "&:hover": {
+                      backgroundColor: "gray.light",
+                    },
+                  }}
+                >
+                  {isLoading ? (
+                    <CircularProgress size="20px" color="black" />
+                  ) : (
+                    "Save"
+                  )}
+                </Button>
+              </Box>{" "}
+            </form>
+            <form
+              style={{
+                width: "100%",
+              }}
+            >
+              <Box display="flex" alignItems="center" width="100%">
+                <TextField
+                  sx={{
+                    width: "80%",
+                  }}
+                  InputProps={{
+                    sx: {
+                      borderRadius: "12px",
+                      marginRight: "20px",
+                    },
+                  }}
+                  id="outlined-search"
+                  label="Email"
+                  type="text"
+                  required
+                  onChange={(e) => setEmailValue(e.target.value)}
+                  value={emailValue}
+                  disabled
+                />
+                <Button
+                  sx={{
                     borderRadius: "12px",
-                    marginRight: "20px",
-                  },
-                }}
-                id="outlined-search"
-                label="Email"
-                type="text"
-                required
-                onChange={(e) => setEmailValue(e.target.value)}
-                value={emailValue}
-                disabled
-              />
-              <Button
-                sx={{
-                  borderRadius: "12px",
-                  color: "black.main",
-                  height: "37px",
-                  "&:hover": {
-                    backgroundColor: "gray.light",
-                  },
-                }}
-              >
-                Edit
-              </Button>
-            </Box>
+                    color: "black.main",
+                    height: "37px",
+                    "&:hover": {
+                      backgroundColor: "gray.light",
+                    },
+                  }}
+                >
+                  Edit
+                </Button>
+              </Box>
+            </form>
           </Box>
         </Box>
         <Box
@@ -178,18 +219,7 @@ const Settings = () => {
               Delete your account and all of your source data. This is
               irreversible.
             </Typography>
-            <Button
-              sx={{
-                borderRadius: "12px",
-                height: "45px",
-                width: "30%",
-              }}
-              size="medium"
-              variant="outlined"
-              color="error"
-            >
-              Delete Account
-            </Button>
+            <DeleteConfirmation />
           </Box>
         </Box>
       </Box>

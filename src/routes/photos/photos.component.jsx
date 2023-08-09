@@ -1,7 +1,7 @@
 import { Alert, Box } from "@mui/material";
 import { useContext } from "react";
 
-import ProfilePost from "../../components/gallery/gallery.component";
+import Gallery from "../../components/gallery/gallery.component";
 import { userContext } from "../../contexts/user.context";
 
 const Photos = () => {
@@ -16,7 +16,7 @@ const Photos = () => {
         flexWrap="wrap"
       >
         {userPostsList.map((post) => (
-          <ProfilePost key={post.id} id={post.id} post={post.data} />
+          <Gallery key={post.id} id={post.id} post={post.data} />
         ))}
       </Box>
     );
@@ -28,7 +28,7 @@ const Photos = () => {
       }}
       severity="warning"
     >
-      There are no posts to show!
+      You haven't posted anything yet!
     </Alert>
   );
 };

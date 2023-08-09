@@ -10,7 +10,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import SearchIcon from "@mui/icons-material/Search";
 
-import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+  StyledLogo,
+} from "./navbar.styles";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,7 +46,9 @@ const Navbar = () => {
           }}
           disableGutters
         >
-          <Logo onClick={() => navigate("/user/home")} />
+          <StyledLogo>
+            <Logo onClick={() => navigate("/user/home")} />
+          </StyledLogo>
           <Box display={"flex"} alignItems="center" height="100%">
             <Search>
               <SearchIconWrapper>

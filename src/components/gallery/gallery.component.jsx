@@ -3,31 +3,43 @@ import { useContext, useState } from "react";
 import { userContext } from "../../contexts/user.context";
 import { deletePost } from "../../utils/firebase/firebase.utils";
 
+import SnackbarAlert from "../snackbar-alert/snackbar-alert.component";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { MoreHoriz } from "@mui/icons-material";
-
 import { Avatar, Box, Typography, IconButton } from "@mui/material";
-const ProfilePost = ({ post, id }) => {
+
+const Gallery = ({ post, id }) => {
   const { user } = useContext(userContext);
   const { uid, displayName, photoURL } = user;
   const { imageUrl } = post;
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleDeleteAndClose = async (e) => {
-    console.log(post);
     e.preventDefault();
+
     setAnchorEl(null);
-    deletePost(uid, id);
+    try {
+      await deletePost(uid, id);
+      setIsOpen(true);
+    } catch (err) {
+      alert(err);
+    }
   };
 
-  const handleClose = async (e) => {
+  const handleClose = (e) => {
     e.preventDefault();
     setAnchorEl(null);
+  };
+
+  const handleRemoveAlert = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -38,6 +50,12 @@ const ProfilePost = ({ post, id }) => {
         mb: "30px",
       }}
     >
+      <SnackbarAlert
+        isOpen={isOpen}
+        handleClose={handleRemoveAlert}
+        message="Post deleted successfully!"
+        type="success"
+      />
       <img
         alt="Post"
         style={{
@@ -97,4 +115,4 @@ const ProfilePost = ({ post, id }) => {
   );
 };
 
-export default ProfilePost;
+export default Gallery;
