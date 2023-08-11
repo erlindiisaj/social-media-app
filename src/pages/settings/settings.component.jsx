@@ -2,7 +2,10 @@ import { useContext, useEffect, useState } from "react";
 
 import { userContext } from "../../contexts/user.context";
 
-import { changeUsersDisplayName } from "../../utils/firebase/firebase.utils";
+import {
+  changeUsersDisplayName,
+  changeUsersEmail,
+} from "../../utils/firebase/firebase.utils";
 
 import TextField from "@mui/material/TextField";
 import { Avatar, Box, Button, Typography } from "@mui/material";
@@ -18,6 +21,8 @@ const Settings = () => {
   const [emailValue, setEmailValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [emailChanged, setEmailChanged] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const { photoURL, displayName, email } = user;
 
   useEffect(() => {
@@ -33,6 +38,7 @@ const Settings = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (displayName === fullName) return;
     setIsLoading(true);
     try {
       await changeUsersDisplayName(user, fullName);
@@ -44,8 +50,20 @@ const Settings = () => {
     }
   };
 
+  const handleEmailChange = async (e) => {
+    e.preventDefault();
+    if (emailValue === email) return;
+    try {
+      await changeUsersEmail(user, emailValue);
+      setEmailChanged(true);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   const handleClose = () => {
     setIsOpen(false);
+    setEmailChanged(false);
   };
   return (
     <>
@@ -62,6 +80,12 @@ const Settings = () => {
           isOpen={isOpen}
           handleClose={handleClose}
           message={`Username changed to ${fullName}`}
+          type="success"
+        />
+        <SnackbarAlert
+          isOpen={emailChanged}
+          handleClose={handleClose}
+          message={`Email changed to ${emailValue}`}
           type="success"
         />
         <Box
@@ -159,6 +183,7 @@ const Settings = () => {
               style={{
                 width: "100%",
               }}
+              onSubmit={handleEmailChange}
             >
               <Box display="flex" alignItems="center" width="100%">
                 <TextField
@@ -177,9 +202,10 @@ const Settings = () => {
                   required
                   onChange={(e) => setEmailValue(e.target.value)}
                   value={emailValue}
-                  disabled
+                  disabled={!isEditing}
                 />
                 <Button
+                  type="submit"
                   sx={{
                     borderRadius: "12px",
                     color: "black.main",
@@ -188,8 +214,9 @@ const Settings = () => {
                       backgroundColor: "gray.light",
                     },
                   }}
+                  onClick={() => setIsEditing(!isEditing)}
                 >
-                  Edit
+                  {isEditing ? "Save" : "Edit"}
                 </Button>
               </Box>
             </form>

@@ -1,8 +1,7 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import Gallery from "../../components/gallery/gallery.component";
-import SnackbarAlert from "../../components/snackbar-alert/snackbar-alert.component";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { userContext } from "../../contexts/user.context";
 
 const Profile = () => {
@@ -50,7 +49,7 @@ const Profile = () => {
             {displayName}
           </Typography>
           <Typography ml={1} variant="h5">
-            @{displayName.split(" ").join("").toLowerCase()}
+            @{displayName && displayName.split(" ").join("").toLowerCase()}
           </Typography>
         </Box>
         <Box mt={1.5} display="flex">

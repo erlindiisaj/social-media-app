@@ -11,6 +11,7 @@ import {
   signOut,
   updateProfile,
   deleteUser,
+  updateEmail,
 } from "firebase/auth";
 import {
   getDoc,
@@ -21,6 +22,7 @@ import {
   addDoc,
   collection,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -134,13 +136,26 @@ export const createUserDocumentFromAuth = async (
 };
 
 export const changeUsersDisplayName = async (userAuth, name) => {
+  const userDocRef = doc(db, "users", userAuth.uid);
+  await updateDoc(userDocRef, {
+    displayName: name,
+  });
   return await updateProfile(userAuth, {
     displayName: name,
   });
 };
+export const changeUsersEmail = async (userAuth, email) => {
+  const userDocRef = doc(db, "users", userAuth.uid);
+  await updateDoc(userDocRef, {
+    email: email,
+  });
+  return await updateEmail(userAuth, email);
+};
 
-export const deleteAccount = async () => {
+export const deleteAccount = async (userAuth) => {
   const user = auth.currentUser;
+  const userDocRef = doc(db, "users", userAuth.uid);
+  await deleteDoc(userDocRef);
   return await deleteUser(user);
 };
 
