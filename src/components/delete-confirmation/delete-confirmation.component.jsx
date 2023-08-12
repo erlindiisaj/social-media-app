@@ -14,8 +14,8 @@ import { userContext } from "../../contexts/user.context";
 
 export default function DeleteConfirmation() {
   const { user } = React.useContext(userContext);
-  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
