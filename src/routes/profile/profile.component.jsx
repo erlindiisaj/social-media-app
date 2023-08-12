@@ -60,7 +60,7 @@ const Profile = () => {
             </Typography>
           </Box>
           <Box margin="0 40px" textAlign="center">
-            <Typography variant="h4">230</Typography>
+            <Typography variant="h4">{userPostsList.length}</Typography>
             <Typography color="black.light" variant="h6">
               Posts
             </Typography>

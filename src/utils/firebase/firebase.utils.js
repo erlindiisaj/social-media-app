@@ -108,8 +108,8 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     const { email } = userAuth;
     const createdAt = new Date();
+    let rand = randomNumberInRange(0, 7);
     try {
-      let rand = randomNumberInRange(0, 7);
       updateProfile(userAuth, {
         photoURL: Avatars[rand],
         displayName: "User ID",
@@ -120,6 +120,7 @@ export const createUserDocumentFromAuth = async (
     try {
       await setDoc(userDocRef, {
         displayName: "User Id",
+        photoURL: Avatars[rand],
         email,
         createdAt,
         followers: "0",
