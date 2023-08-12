@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { authContext } from "../../contexts/auth.context";
 
+import { motion } from "framer-motion";
+
 import {
   logInWithEmailAndPassword,
   signInWithGooglePopup,
@@ -82,14 +84,26 @@ const SignIn = () => {
     setUserInput(userInputInitial);
   };
 
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+    },
+  };
+
   return (
-    <Box
-      display={"flex"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      flexDirection={"column"}
-      width={0.5}
-      height={1}
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        width: "50%",
+        height: "100%",
+      }}
     >
       <Box mb={5.7} width="300px" display={"flex"} alignItems={"center"}>
         <Logo />
@@ -215,7 +229,7 @@ const SignIn = () => {
           Sign Up
         </Link>
       </Box>
-    </Box>
+    </motion.div>
   );
 };
 

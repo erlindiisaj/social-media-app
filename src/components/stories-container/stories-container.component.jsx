@@ -27,7 +27,7 @@ const StoriesContainer = () => {
       }}
     >
       {STORY_DATA.map((story) => {
-        const { name, imageUrl, id } = story;
+        const { name, imageUrl, id, profilePic } = story;
         return (
           <motion.div
             onClick={() => {
@@ -52,7 +52,7 @@ const StoriesContainer = () => {
             }}
             className={selectedId === id ? "opened-story" : ""}
           >
-            <Avatar />
+            <Avatar src={profilePic} />
             <Typography color="white.main" fontWeight="600">
               {name}
             </Typography>

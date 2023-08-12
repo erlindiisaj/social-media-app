@@ -127,6 +127,7 @@ const CreatePost = () => {
             type="submit"
             style={{
               borderRadius: "12px",
+              width: "80px",
             }}
             variant="contained"
           >
