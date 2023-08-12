@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { motion } from "framer-motion";
 
 import { userContext } from "../../contexts/user.context";
 import { deletePost } from "../../utils/firebase/firebase.utils";
@@ -43,8 +44,10 @@ const Gallery = ({ post, id }) => {
   };
 
   return (
-    <Box
-      sx={{
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      style={{
         width: "45%",
         height: "450px",
         mb: "30px",
@@ -111,7 +114,7 @@ const Gallery = ({ post, id }) => {
           </Menu>
         </div>
       </Box>
-    </Box>
+    </motion.div>
   );
 };
 

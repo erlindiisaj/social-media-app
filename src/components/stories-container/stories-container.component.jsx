@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Avatar, Typography } from "@mui/material";
 
@@ -11,6 +11,14 @@ import STORY_DATA from "../../datas/STORY_DATA";
 const StoriesContainer = () => {
   const [selectedId, setSelectedId] = useState(null);
 
+  useEffect(() => {
+    if (selectedId) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [selectedId]);
+
   return (
     <div
       style={{
@@ -22,7 +30,6 @@ const StoriesContainer = () => {
         const { name, imageUrl, id } = story;
         return (
           <motion.div
-            transition={{ delay: 1 }}
             onClick={() => {
               selectedId ? setSelectedId(null) : setSelectedId(id);
             }}

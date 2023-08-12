@@ -6,7 +6,7 @@ import {
 
 import "./App.css";
 import { lazy, Suspense, useContext, useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { userContext } from "./contexts/user.context";
 import { postsListContext } from "./contexts/social-media-posts.context";
@@ -19,7 +19,6 @@ import Loading from "./components/loading/loading.component";
 
 import Auth from "./pages/auth/auth.component";
 import Settings from "./pages/settings/settings.component";
-import WrongPath from "./components/wrong-path/wrong-path.component";
 const LoggedInUser = lazy(() =>
   import("./pages/logged-in-user/logged-in-user.component")
 );
@@ -43,8 +42,8 @@ const App = () => {
                 userPostsListArray.push(post);
               }
             });
-            setUserPostsList(userPostsListArray);
-            setPostsList(postsData);
+            await setPostsList(postsData);
+            await setUserPostsList(userPostsListArray);
           };
           console.log(user);
 
