@@ -39,7 +39,7 @@ const Profile = () => {
           justifyContent: "center",
           borderRadius: "12px",
           marginTop: "40px",
-          background: "white",
+          backgroundColor: "white.main",
           width: "55%",
           height: "100px",
         }}
@@ -100,7 +100,7 @@ const Profile = () => {
               fontWeight={600}
               lineHeight="20px"
               variant="h5"
-              color="white.main"
+              color="white.light"
             >
               {userPostsList.length}
             </Typography>

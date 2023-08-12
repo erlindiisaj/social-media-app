@@ -4,9 +4,8 @@ import { userContext } from "../../contexts/user.context";
 
 import { uploadPost } from "../../utils/firebase/firebase.utils";
 
-import { Avatar, Box, Button, Alert } from "@mui/material";
+import { Avatar, Box, Button, InputLabel, Input } from "@mui/material";
 
-import Snackbar from "@mui/material/Snackbar";
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -105,9 +104,22 @@ const CreatePost = () => {
             gridColumn: "2/3",
           }}
         >
-          <input
+          <Input
+            variant="outlined"
+            sx={{
+              width: "100%",
+              height: "50px",
+              borderRadius: "12px",
+              backgroundColor: "backgroundAccent.main",
+              padding: "0 12px",
+              "&&&:before": {
+                borderBottom: "none",
+              },
+              "&&:after": {
+                borderBottom: "none",
+              },
+            }}
             onChange={handleDescriptionChange}
-            className="description-input"
             placeholder="Write a description here..."
             type="text"
             value={objectToAdd.description}
@@ -163,7 +175,16 @@ const CreatePost = () => {
             className="inputfile"
           />
 
-          <label className={file ? "image-selected" : ""} htmlFor="file">
+          <InputLabel
+            sx={{
+              color: "black.light",
+              "&:hover": {
+                backgroundColor: "backgroundAccent.main",
+              },
+            }}
+            className={file ? "image-selected" : ""}
+            htmlFor="file"
+          >
             {" "}
             {file ? (
               <TaskAltRoundedIcon
@@ -177,7 +198,7 @@ const CreatePost = () => {
               <UploadSVG />
             )}
             {file ? `Image selected!` : "Select an image..."}
-          </label>
+          </InputLabel>
         </Box>
       </Box>
     </form>

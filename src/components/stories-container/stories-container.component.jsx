@@ -53,7 +53,7 @@ const StoriesContainer = () => {
             className={selectedId === id ? "opened-story" : ""}
           >
             <Avatar src={profilePic} />
-            <Typography color="white.main" fontWeight="600">
+            <Typography color="white.light" fontWeight="600">
               {name}
             </Typography>
           </motion.div>

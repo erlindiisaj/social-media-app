@@ -8,48 +8,14 @@
     
 }
 
-.sidebar-link {
-    border: 1px solid transparent;
-    vertical-align: middle;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 3.125rem;
-    line-height: 3.125rem;
-    cursor: pointer;
-    z-index: 1;
-    transition: .3s ease;
-
-    &:hover{
-    border-left: 1px solid rgba($color: #5632FA, $alpha: 1);
-    background: #FCFCFC;
-
-      
-    }
-    
-    a {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        color: rgba($color: #000000, $alpha: .5);
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        
-    }
-}
 
 .last {
     border-bottom: none !important;
 }
 
 .active {
-    border-top: 0.5px solid rgba(183, 187, 199, 0.50);
-    border-bottom: 0.5px solid rgba(183, 187, 199, 0.50);
-    border-left: 1px solid #5632FA;
-    background: #FCFCFC;
-    width: 100%;
+    border-left: 1px solid rgba($color: #5632FA, $alpha: 1);
+   
     path {
         fill: #5632FA;
     }

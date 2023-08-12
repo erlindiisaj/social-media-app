@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import moment from "moment"; //? Posts date library
-import { motion } from "framer-motion";
 
 import { Typography, Box, Avatar, Button } from "@mui/material";
 
@@ -30,10 +29,17 @@ const Post = ({ post, id }) => {
   };
 
   return (
-    <motion.div
+    <Box
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      className="posts-container"
+      sx={{
+        marginBottom: "30px",
+        padding: "40px",
+        width: "100%",
+        backgroundColor: "white.main",
+        borderRadius: "12px",
+        height: "fit-content",
+      }}
     >
       <Box
         sx={{
@@ -91,7 +97,7 @@ const Post = ({ post, id }) => {
           </Button>
         </Box>
       </Box>
-    </motion.div>
+    </Box>
   );
 };
 
