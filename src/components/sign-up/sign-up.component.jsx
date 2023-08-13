@@ -11,6 +11,7 @@ import {
   signUpWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
+import { ReactComponent as LogoWhite } from "../../Images/logo-without-text-white.svg";
 import { ReactComponent as GoogleIcon } from "../../Images/google-icon.svg";
 import { ReactComponent as Logo } from "../../Images/logo.svg";
 import { ReactComponent as Line } from "../../Images/line.svg";
@@ -24,6 +25,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import InputAdornment from "@mui/material/InputAdornment";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Box, Button, Typography, Link } from "@mui/material";
+import { ColorModeContext } from "../../theme";
 
 const userInputInitial = {
   email: "",
@@ -35,6 +37,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState(userInputInitial);
   const { authState, setAuthSate } = useContext(authContext);
+  const { mode } = useContext(ColorModeContext);
   const navigate = useNavigate();
 
   const { email, password, confirmPassword } = userInput;
@@ -109,7 +112,7 @@ const SignUp = () => {
       }}
     >
       <Box mb={3.7} width="300px" display={"flex"} alignItems={"center"}>
-        <Logo />
+        {mode === "dark" ? <LogoWhite /> : <Logo />}
         <Box ml={1.4}>
           <Typography variant="h1">Create an account</Typography>
           <Typography variant="h5">
@@ -120,10 +123,10 @@ const SignUp = () => {
       <Box width={"300px"}>
         <Button
           onClick={handleGoogleButton}
-          style={{
+          sx={{
             borderRadius: "12px",
-            color: "black",
-            borderColor: "black",
+            color: "black.main",
+            borderColor: "black.main",
           }}
           startIcon={<GoogleIcon />}
           size="large"

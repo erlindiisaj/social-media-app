@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import moment from "moment"; //? Posts date library
+import { motion } from "framer-motion";
 
 import { Typography, Box, Avatar, Button } from "@mui/material";
 
@@ -29,75 +30,79 @@ const Post = ({ post, id }) => {
   };
 
   return (
-    <Box
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      sx={{
-        marginBottom: "30px",
-        padding: "40px",
-        width: "100%",
-        backgroundColor: "white.main",
-        borderRadius: "12px",
-        height: "fit-content",
-      }}
-    >
+    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
       <Box
         sx={{
+          marginBottom: "30px",
+          padding: "40px",
           width: "100%",
+          backgroundColor: "white.main",
+          borderRadius: "12px",
+          height: "fit-content",
         }}
-        display="flex"
-        justifyContent="space-between"
       >
-        <Box alignItems="center" display="flex">
-          <Avatar src={avatarURL} />
-          <Box marginLeft={1.2}>
-            <Typography fontWeight="600" variant="h4">
-              {userName}
-            </Typography>
-            <Typography color="gray.main" variant="h5">
-              {moment(dateCreated).fromNow()}
-            </Typography>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Box alignItems="center" display="flex">
+            <Avatar src={avatarURL} />
+            <Box marginLeft={1.2}>
+              <Typography fontWeight="600" variant="h4">
+                {userName}
+              </Typography>
+              <Typography color="gray.main" variant="h5">
+                {moment(dateCreated).fromNow()}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Box mt={2.5}>
+          <Typography color="black.light" variant="h5">
+            {description}
+          </Typography>
+          <Box
+            mt={4}
+            sx={{
+              borderRadius: "12px",
+              width: "100%",
+              minHeight: "600px",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundImage: `url(${imageUrl})`,
+            }}
+          ></Box>
+          <Box mt={2} display="flex">
+            <Button
+              onClick={handleLike}
+              variant="soft"
+              startIcon={
+                isLiked ? (
+                  <FavoriteRoundedIcon />
+                ) : (
+                  <FavoriteBorderRoundedIcon />
+                )
+              }
+            >
+              {likes}
+            </Button>
+            <Button
+              sx={{
+                marginLeft: "20px",
+              }}
+              variant="soft"
+              startIcon={<ChatBubbleOutlineRoundedIcon />}
+            >
+              {comments}
+            </Button>
           </Box>
         </Box>
       </Box>
-      <Box mt={2.5}>
-        <Typography color="black.light" variant="h5">
-          {description}
-        </Typography>
-        <Box
-          mt={4}
-          sx={{
-            borderRadius: "12px",
-            width: "100%",
-            minHeight: "600px",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundImage: `url(${imageUrl})`,
-          }}
-        ></Box>
-        <Box mt={2} display="flex">
-          <Button
-            onClick={handleLike}
-            variant="soft"
-            startIcon={
-              isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderRoundedIcon />
-            }
-          >
-            {likes}
-          </Button>
-          <Button
-            sx={{
-              marginLeft: "20px",
-            }}
-            variant="soft"
-            startIcon={<ChatBubbleOutlineRoundedIcon />}
-          >
-            {comments}
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+    </motion.div>
   );
 };
 
