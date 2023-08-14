@@ -200,7 +200,7 @@ export const ColorModeContext = createContext({
 });
 
 export const ColorModeContextProvider = ({ children }) => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
   const [settings, setSettings] = useState(themeSettings(mode));
 
   useEffect(() => {
