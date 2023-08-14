@@ -1,4 +1,8 @@
 import * as React from "react";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/user.selector";
+
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -10,10 +14,9 @@ import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import { Typography, Divider } from "@mui/material";
 import { deleteAccount } from "../../utils/firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../../contexts/user.context";
 
 export default function DeleteConfirmation() {
-  const { user } = React.useContext(userContext);
+  const user = useSelector(selectUser);
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
 

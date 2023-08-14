@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/user.selector";
 
 import { uploadPost } from "../../utils/firebase/firebase.utils";
 
@@ -21,12 +22,12 @@ const initialObjectToAdd = {
 };
 
 const CreatePost = () => {
+  const user = useSelector(selectUser);
   const [file, setFile] = useState(null);
   const [objectToAdd, setObjectToAdd] = useState(initialObjectToAdd);
   const [isLoading, setIsLoading] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
   const [failedOpen, setFailedOpen] = useState(false);
-  const { user } = useContext(userContext);
   const { photoURL } = user;
 
   const handleChange = (e) => {

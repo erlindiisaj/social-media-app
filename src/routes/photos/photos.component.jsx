@@ -1,11 +1,11 @@
 import { Alert, Box } from "@mui/material";
-import { useContext } from "react";
 
 import Gallery from "../../components/gallery/gallery.component";
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUserPosts } from "../../store/user/user.selector";
 
 const Photos = () => {
-  const { userPostsList } = useContext(userContext);
+  const userPostsList = useSelector(selectUserPosts);
 
   if (userPostsList.length !== 0) {
     return (

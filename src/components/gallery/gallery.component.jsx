@@ -1,7 +1,9 @@
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/user.selector";
+
 import { deletePost } from "../../utils/firebase/firebase.utils";
 
 import SnackbarAlert from "../snackbar-alert/snackbar-alert.component";
@@ -12,7 +14,7 @@ import { MoreHoriz } from "@mui/icons-material";
 import { Avatar, Box, Typography, IconButton } from "@mui/material";
 
 const Gallery = ({ post, id }) => {
-  const { user } = useContext(userContext);
+  const user = useSelector(selectUser);
   const { uid, displayName, photoURL } = user;
   const { imageUrl } = post;
   const [anchorEl, setAnchorEl] = useState(null);

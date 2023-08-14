@@ -5,22 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { ColorModeContextProvider } from "./theme";
-import { AuthContextProvider } from "./contexts/auth.context";
-import { PostsListProvider } from "./contexts/social-media-posts.context";
-import { UserContextProvider } from "./contexts/user.context";
+import { store } from "./store/store";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ColorModeContextProvider>
-        <UserContextProvider>
-          <AuthContextProvider>
-            <PostsListProvider>
-              <App />
-            </PostsListProvider>
-          </AuthContextProvider>
-        </UserContextProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ColorModeContextProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,0 +1,4 @@
+export const USER_ACTION_TYPES = {
+  SET_USER: "SET_USER",
+  SET_USER_POSTS: "SET_USER_POSTS",
+};

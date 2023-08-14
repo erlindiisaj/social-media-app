@@ -1,11 +1,10 @@
-import { useContext } from "react";
-
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/user.selector";
 
 import { Avatar, Box, Typography } from "@mui/material";
 
 const CurrentUser = () => {
-  const { user } = useContext(userContext);
+  const user = useSelector(selectUser);
   const { photoURL, displayName } = user;
   return (
     <Box

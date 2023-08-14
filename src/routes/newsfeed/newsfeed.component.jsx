@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
+import { selectPostsList } from "../../store/posts-list/post-list.selector";
 
 import Post from "../../components/post/post.component";
 import { Alert } from "@mui/material";
-import { postsListContext } from "../../contexts/social-media-posts.context";
 
 const Newsfeed = () => {
-  const { postsList } = useContext(postsListContext);
+  const postsList = useSelector(selectPostsList);
 
   if (postsList.length === 0) {
     return (

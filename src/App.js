@@ -8,8 +8,10 @@ import "./App.css";
 import { lazy, Suspense, useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { userContext } from "./contexts/user.context";
-import { postsListContext } from "./contexts/social-media-posts.context";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostsList } from "./store/posts-list/posts-list.action";
+import { setUserPostsList } from "./store/user/user.action";
+import { setUser } from "./store/user/user.action";
 
 import { ColorModeContext } from "./theme";
 import { ThemeProvider } from "@emotion/react";
@@ -19,13 +21,14 @@ import Loading from "./components/loading/loading.component";
 
 import Auth from "./pages/auth/auth.component";
 import Settings from "./pages/settings/settings.component";
+import { selectUser } from "./store/user/user.selector";
 const LoggedInUser = lazy(() =>
   import("./pages/logged-in-user/logged-in-user.component")
 );
 
 const App = () => {
-  const { user, setUser, setUserPostsList } = useContext(userContext);
-  const { setPostsList } = useContext(postsListContext);
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const { settings } = useContext(ColorModeContext);
   const theme = createTheme(settings);
 
@@ -42,17 +45,17 @@ const App = () => {
                 userPostsListArray.push(post);
               }
             });
-            await setPostsList(postsData);
-            await setUserPostsList(userPostsListArray);
+
+            await dispatch(setPostsList(postsData));
+            await dispatch(setUserPostsList(userPostsListArray));
           };
-          console.log(user);
 
           data();
         } catch (err) {
           alert(err);
         }
       }
-      setUser(user);
+      dispatch(setUser(user));
     });
     return unsubscribe;
   }, []);

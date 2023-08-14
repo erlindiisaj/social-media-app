@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/user.selector";
 
 import { userSignOut } from "../../utils/firebase/firebase.utils";
 
@@ -15,8 +16,8 @@ import { Box, Divider, MenuList, Popover } from "@mui/material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 const SettingsMenu = () => {
+  const user = useSelector(selectUser);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { user } = useContext(userContext);
   const { photoURL, displayName } = user;
   const navigate = useNavigate();
 

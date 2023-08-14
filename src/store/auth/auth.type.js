@@ -1,0 +1,3 @@
+export const AUTH_ACTION_TYPES = {
+  SET_AUTH_STATE: "SET_AUTH_STATE",
+};

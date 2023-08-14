@@ -1,11 +1,12 @@
 import { Avatar, Box, Typography } from "@mui/material";
 import Gallery from "../../components/gallery/gallery.component";
 
-import { useContext } from "react";
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUser, selectUserPosts } from "../../store/user/user.selector";
 
 const Profile = () => {
-  const { user, userPostsList } = useContext(userContext);
+  const user = useSelector(selectUser);
+  const userPostsList = useSelector(selectUserPosts);
   const { displayName, photoURL } = user;
 
   return (

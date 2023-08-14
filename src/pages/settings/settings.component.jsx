@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
-import { userContext } from "../../contexts/user.context";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/user/user.selector";
 
 import {
   changeUsersDisplayName,
@@ -16,7 +17,7 @@ import SnackbarAlert from "../../components/snackbar-alert/snackbar-alert.compon
 import DeleteConfirmation from "../../components/delete-confirmation/delete-confirmation.component";
 
 const Settings = () => {
-  const { user } = useContext(userContext);
+  const user = useSelector(selectUser);
   const [fullName, setFullName] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);

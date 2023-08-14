@@ -1,13 +1,15 @@
+import { useSelector } from "react-redux";
+import { selectPostsList } from "../../store/posts-list/post-list.selector";
+
 import { Box } from "@mui/material";
-import { useContext } from "react";
-import CreatePost from "../../components/upload-image/upload-image.component";
-import Post from "../../components/post/post.component";
-import StoriesContainer from "../../components/stories-container/stories-container.component";
 import LinearProgress from "@mui/material/LinearProgress";
-import { postsListContext } from "../../contexts/social-media-posts.context";
+
+import Post from "../../components/post/post.component";
+import CreatePost from "../../components/upload-image/upload-image.component";
+import StoriesContainer from "../../components/stories-container/stories-container.component";
 
 const Homepage = () => {
-  const { postsList } = useContext(postsListContext);
+  const postsList = useSelector(selectPostsList);
 
   if (postsList) {
     return (

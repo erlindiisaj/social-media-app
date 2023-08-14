@@ -2,7 +2,9 @@ import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { authContext } from "../../contexts/auth.context";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuthState } from "../../store/auth/auth.selector";
+import { setAuthSate } from "../../store/auth/auth.action";
 
 import { motion } from "framer-motion";
 
@@ -34,9 +36,10 @@ const userInputInitial = {
 };
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const authState = useSelector(selectAuthState);
   const [showPassword, setShowPassword] = useState(false);
   const [userInput, setUserInput] = useState(userInputInitial);
-  const { authState, setAuthSate } = useContext(authContext);
   const { mode } = useContext(ColorModeContext);
   const navigate = useNavigate();
 
@@ -44,7 +47,7 @@ const SignUp = () => {
 
   const onSignUpClickHandler = (e) => {
     e.preventDefault();
-    authState === "signin" ? setAuthSate("signup") : setAuthSate("signin");
+    dispatch(setAuthSate("signin"));
   };
 
   const handleInputChange = (e) => {
