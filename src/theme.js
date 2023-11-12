@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 
-//color design tokens
 export const tokens = (mode) => ({
   ...(mode === "light"
     ? {
@@ -72,6 +71,32 @@ export const tokens = (mode) => ({
           800: "#bbadfd",
           900: "#ddd6fe",
         },
+        black: {
+          100: "#000000",
+          200: "#C4C4C6",
+          500: "#ffffff",
+        },
+        white: {
+          300: "fffffff",
+          500: "#1b1b1b",
+          800: "#ffffff",
+        },
+        gray: {
+          100: "#252528",
+          200: "#494b50",
+          300: "#6e7077",
+          400: "#92969f",
+          500: "#b7bbc7",
+          600: "#c5c9d2",
+          700: "#d4d6dd",
+          800: "#e2e4e9",
+          900: "#f1f1f4",
+        },
+        backgroundAccent: {
+          300: "#1b1b1b",
+          500: "#242424",
+          600: "#f7f7f9",
+        },
       }),
 });
 
@@ -88,14 +113,16 @@ export const themeSettings = (mode) => {
             },
             gray: {
               main: colors.gray[500],
-              light: colors.gray[200],
+              light: colors.gray[100],
               dark: colors.gray[600],
             },
             black: {
               main: colors.black[500],
               light: colors.black[200],
+              extraLight: colors.black[100],
             },
             white: {
+              light: colors.white[500],
               main: colors.white[500],
               dark: colors.white[800],
             },
@@ -107,7 +134,28 @@ export const themeSettings = (mode) => {
           }
         : {
             primary: {
-              main: colors.blueAccent[700],
+              main: colors.blueAccent[500],
+              light: colors.blueAccent[100],
+            },
+            gray: {
+              main: colors.gray[500],
+              light: colors.gray[100],
+              dark: colors.gray[600],
+            },
+            black: {
+              main: colors.black[500],
+              light: colors.black[200],
+              extraLight: colors.black[100],
+            },
+            white: {
+              light: colors.white[300],
+              main: colors.white[500],
+              dark: colors.white[800],
+            },
+            backgroundAccent: {
+              light: colors.backgroundAccent[300],
+              main: colors.backgroundAccent[500],
+              dark: colors.backgroundAccent[600],
             },
           }),
     },

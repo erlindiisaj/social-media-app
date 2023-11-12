@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
+
 import { useParams } from "react-router-dom";
 
-import { ReactComponent as ProfileSVG } from "../../Images/user.svg";
-import { ReactComponent as HomeSVG } from "../../Images/home.svg";
-import { ReactComponent as NewsfeedSVG } from "../../Images/newsfeed.svg";
-import { ReactComponent as PhotoSVG } from "../../Images/photos.svg";
+import { Box } from "@mui/material";
+import { SidebarLinkContainer, SidebarLink } from "./sidebar.styles";
+
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import PersonIcon from "@mui/icons-material/Person";
+import ArticleIcon from "@mui/icons-material/Article";
+import InsertPhotoRoundedIcon from "@mui/icons-material/InsertPhotoRounded";
 
 import "./sidebar.styles.scss";
 
 const Sidebar = () => {
   const { page } = useParams();
+
   const [isActive, setIsActive] = useState({
     home: false,
     profile: false,
@@ -53,50 +56,78 @@ const Sidebar = () => {
       }}
     >
       <div className="sidebar-container">
-        <Box
+        <SidebarLinkContainer
           onClick={handleClick}
           id="home"
-          className={isActive.home ? "active sidebar-link" : "sidebar-link"}
+          className={isActive.home ? "active " : ""}
         >
-          <Link to="home">
+          <SidebarLink to="home">
             {" "}
-            <HomeSVG />
+            <HomeRoundedIcon
+              sx={{
+                width: "30px",
+                height: "30px",
+                margin: "0 20px 0 20px",
+                color: "black.light",
+              }}
+            />
             Home
-          </Link>
-        </Box>
-        <Box
+          </SidebarLink>
+        </SidebarLinkContainer>
+        <SidebarLinkContainer
           onClick={handleClick}
           id="profile"
-          className={isActive.profile ? "active sidebar-link" : "sidebar-link"}
+          className={isActive.profile ? "active " : ""}
         >
-          <Link to={"profile"}>
+          <SidebarLink to={"profile"}>
             {" "}
-            <ProfileSVG />
+            <PersonIcon
+              sx={{
+                width: "30px",
+                height: "30px",
+                margin: "0 20px 0 20px",
+                color: "black.light",
+              }}
+            />
             Profile
-          </Link>
-        </Box>
-        <Box
+          </SidebarLink>
+        </SidebarLinkContainer>
+        <SidebarLinkContainer
           id="newsfeed"
           onClick={handleClick}
-          className={isActive.newsfeed ? "active sidebar-link" : "sidebar-link"}
+          className={isActive.newsfeed ? "active " : ""}
         >
-          <Link to={"newsfeed"}>
+          <SidebarLink to={"newsfeed"}>
             {" "}
-            <NewsfeedSVG />
+            <ArticleIcon
+              sx={{
+                width: "30px",
+                height: "30px",
+                margin: "0 20px 0 20px",
+                color: "black.light",
+              }}
+            />
             News Feed
-          </Link>
-        </Box>
-        <Box
+          </SidebarLink>
+        </SidebarLinkContainer>
+        <SidebarLinkContainer
           id="photos"
           onClick={handleClick}
-          className={isActive.photos ? "active sidebar-link" : "sidebar-link"}
+          className={isActive.photos ? "active " : ""}
         >
-          <Link to={"photos"}>
+          <SidebarLink to={"photos"}>
             {" "}
-            <PhotoSVG />
+            <InsertPhotoRoundedIcon
+              sx={{
+                width: "30px",
+                height: "30px",
+                margin: "0 20px 0 20px",
+                color: "black.light",
+              }}
+            />
             Photos
-          </Link>
-        </Box>
+          </SidebarLink>
+        </SidebarLinkContainer>
       </div>
     </Box>
   );

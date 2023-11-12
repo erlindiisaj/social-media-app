@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { userContext } from "../../contexts/user.context";
 
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,23 @@ import { userSignOut } from "../../utils/firebase/firebase.utils";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 const settings = ["Profile", "Settings", "Logout"];
+=======
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { userContext } from "../../contexts/user.context";
+
+import { userSignOut } from "../../utils/firebase/firebase.utils";
+
+import Avatar from "@mui/material/Avatar";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
+import { Box, Divider, MenuList, Popover } from "@mui/material";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+>>>>>>> e137859d6dc5765aa96632c11523e13624c92a16
 
 const SettingsMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -87,6 +105,7 @@ const SettingsMenu = () => {
             id="Settings"
             onClick={handleCloseUserMenu}
           >
+<<<<<<< HEAD
             Settings
           </MenuItem>
           <MenuItem
@@ -94,6 +113,25 @@ const SettingsMenu = () => {
             id="Logout"
             onClick={handleCloseUserMenu}
           >
+=======
+            <TuneRoundedIcon
+              sx={{
+                marginRight: "10px",
+              }}
+            />
+            Settings
+          </MenuItem>
+          <MenuItem
+            sx={{ fontSize: "14px", textAlign: "center", width: "100%" }}
+            id="Logout"
+            onClick={handleCloseUserMenu}
+          >
+            <LogoutRoundedIcon
+              sx={{
+                marginRight: "10px",
+              }}
+            />
+>>>>>>> e137859d6dc5765aa96632c11523e13624c92a16
             Sign Out
           </MenuItem>
         </MenuList>

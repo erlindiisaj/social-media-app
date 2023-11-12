@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { ReactComponent as LocationSVG } from "../../Images/location-logo.svg";
 import { ReactComponent as Calendar } from "../../Images/calendar05.svg";
+import { ReactComponent as LocationSVG } from "../../Images/location-logo.svg";
+
+import { Box, Typography } from "@mui/material";
 
 const Event = ({ event }) => {
   const { name, location } = event;

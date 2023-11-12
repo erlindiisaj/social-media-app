@@ -8,6 +8,7 @@
     
 }
 
+<<<<<<< HEAD
 .sidebar-link {
     border: 1px solid transparent;
     vertical-align: middle;
@@ -38,17 +39,16 @@
         
     }
    
+=======
+>>>>>>> e137859d6dc5765aa96632c11523e13624c92a16
 
 .last {
     border-bottom: none !important;
 }
 
 .active {
-    border-top: 0.5px solid rgba(183, 187, 199, 0.50);
-    border-bottom: 0.5px solid rgba(183, 187, 199, 0.50);
-    border-left: 1px solid #5632FA;
-    background: #FCFCFC;
-    width: 100%;
+    border-left: 1px solid rgba($color: #5632FA, $alpha: 1);
+   
     path {
         fill: #5632FA;
     }
@@ -56,4 +56,13 @@
         
         color: #5632FA;
     }
+    &:hover{
+        border-left: 1px solid rgba($color: #5632FA, $alpha: 1);
+            a {
+                color: rgba($color: #5632FA, $alpha: 1);
+            }
+            path {
+                fill: rgba($color: #5632FA, $alpha: 1);
+            }
+        }
 }

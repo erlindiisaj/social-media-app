@@ -1,54 +1,44 @@
-import { useState, useContext } from "react";
-import { userContext } from "../../contexts/user.context";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+
+import SettingsMenu from "../settings-menu/settings-menu.component";
 
 import { ReactComponent as Logo } from "../../Images/horizontal-logo.svg";
-import { Search, SearchIconWrapper, StyledInputBase } from "./navbar.styles";
+import { ReactComponent as LogoWhite } from "../../Images/horizontal-logo-white.svg";
 
-import SearchIcon from "@mui/icons-material/Search";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { userSignOut } from "../../utils/firebase/firebase.utils";
+import SearchIcon from "@mui/icons-material/Search";
 
-const settings = ["Profile", "Settings", "Logout"];
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+  StyledLogo,
+} from "./navbar.styles";
+import { ColorModeContext } from "../../theme";
+import { IconButton, Tooltip } from "@mui/material";
 
 const Navbar = () => {
-  const { user } = useContext(userContext);
-  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
-  const { photoURL } = user;
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = async (e) => {
-    e.preventDefault();
-    setAnchorElUser(null);
-    const { id } = e.target;
-    if (id === "Logout") {
-      await userSignOut();
-      navigate("/");
-    }
-    if (id === "Settings") {
-      navigate("/settings");
-    }
-    if (id === "Profile") {
-      navigate("/user/profile");
-    }
+  const { mode, setMode } = useContext(ColorModeContext);
+
+  const changeColorMode = () => {
+    if (mode === "light") setMode("dark");
+    else setMode("light");
   };
 
   return (
     <AppBar
       position="relative"
-      style={{
-        backgroundColor: "white",
+      sx={{
+        backgroundImage: "none",
+        backgroundColor: "white.main",
         height: "90px",
         display: "flex",
         flexDirection: "row",
@@ -70,51 +60,33 @@ const Navbar = () => {
           }}
           disableGutters
         >
-          <Logo />
+          <StyledLogo>
+            {mode === "dark" ? (
+              <LogoWhite onClick={() => navigate("/user/home")} />
+            ) : (
+              <Logo onClick={() => navigate("/user/home")} />
+            )}
+          </StyledLogo>
           <Box display={"flex"} alignItems="center" height="100%">
             <Search>
               <SearchIconWrapper>
                 <SearchIcon color="gray" />
               </SearchIconWrapper>
               <StyledInputBase
-                color="gray"
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu}>
-                <Avatar src={photoURL} />
+            <Tooltip title="Color mode">
+              <IconButton onClick={changeColorMode}>
+                {mode === "light" ? (
+                  <DarkModeOutlinedIcon />
+                ) : (
+                  <LightModeOutlinedIcon />
+                )}
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  onClick={handleCloseUserMenu}
-                  id={setting}
-                  key={setting}
-                >
-                  <Typography id={setting} textAlign="center">
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <SettingsMenu />
           </Box>
         </Toolbar>
       </Container>

@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { useContext } from "react";
-import { userPosts } from "../../contexts/userPosts.context";
 import CreatePost from "../../components/upload-image/upload-image.component";
 import Post from "../../components/post/post.component";
 import StoriesContainer from "../../components/stories-container/stories-container.component";
 import LinearProgress from "@mui/material/LinearProgress";
+import { postsListContext } from "../../contexts/social-media-posts.context";
 
 const Homepage = () => {
-  const { postsList } = useContext(userPosts);
+  const { postsList } = useContext(postsListContext);
 
   if (postsList) {
     return (

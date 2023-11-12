@@ -1,27 +1,33 @@
 import { useState, useContext } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import { authContext } from "../../contexts/auth.context";
+
+import { motion } from "framer-motion";
 
 import {
   logInWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 
-import "./sign-in.styles.scss";
-
+import { ReactComponent as LogoWhite } from "../../Images/logo-without-text-white.svg";
 import { ReactComponent as Logo } from "../../Images/logo.svg";
 import { ReactComponent as Line } from "../../Images/line.svg";
 import { ReactComponent as GoogleIcon } from "../../Images/google-icon.svg";
 
-import { Box, Button, Typography, Link } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import FilledInput from "@mui/material/FilledInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import FilledInput from "@mui/material/FilledInput";
+import Visibility from "@mui/icons-material/Visibility";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Box, Button, Typography, Link } from "@mui/material";
+
+import "./sign-in.styles.scss";
+import { ColorModeContext } from "../../theme";
 
 const userInputInitial = {
   email: "",
@@ -32,6 +38,7 @@ const SignIn = () => {
   const [userInput, setUserInput] = useState(userInputInitial);
   const [showPassword, setShowPassword] = useState(false);
   const { authState, setAuthSate } = useContext(authContext);
+  const { mode } = useContext(ColorModeContext);
   const { email, password } = userInput;
   const navigate = useNavigate();
 
@@ -80,17 +87,29 @@ const SignIn = () => {
     setUserInput(userInputInitial);
   };
 
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+    },
+  };
+
   return (
-    <Box
-      display={"flex"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      flexDirection={"column"}
-      width={0.5}
-      height={1}
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        width: "50%",
+        height: "100%",
+      }}
     >
       <Box mb={5.7} width="300px" display={"flex"} alignItems={"center"}>
-        <Logo />
+        {mode === "dark" ? <LogoWhite /> : <Logo />}
         <Box ml={1.4}>
           <Typography variant="h1">Welcome back!</Typography>
           <Typography variant="h5">
@@ -185,10 +204,10 @@ const SignIn = () => {
         </Box>
         <Button
           onClick={handleGoogleButton}
-          style={{
+          sx={{
             borderRadius: "12px",
-            color: "black",
-            borderColor: "black",
+            color: "black.main",
+            borderColor: "black.main",
           }}
           startIcon={<GoogleIcon />}
           size="large"
@@ -213,7 +232,7 @@ const SignIn = () => {
           Sign Up
         </Link>
       </Box>
-    </Box>
+    </motion.div>
   );
 };
 

@@ -8,7 +8,7 @@ import Events from "../../components/events-container/events.component";
 import CurrentUser from "../../components/current-user/current-user.component";
 import RouteDisplay from "../../components/route-display/route-display.component";
 
-const User = () => {
+const LoggedInUser = () => {
   const { page } = useParams();
 
   return (
@@ -51,4 +51,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default LoggedInUser;

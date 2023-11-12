@@ -1,11 +1,23 @@
-import "./stories-container.styles.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { Avatar, Typography } from "@mui/material";
+
 import { motion } from "framer-motion";
+
+import "./stories-container.styles.scss";
+
 import STORY_DATA from "../../datas/STORY_DATA";
 
 const StoriesContainer = () => {
   const [selectedId, setSelectedId] = useState(null);
+
+  useEffect(() => {
+    if (selectedId) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [selectedId]);
 
   return (
     <div
@@ -15,10 +27,9 @@ const StoriesContainer = () => {
       }}
     >
       {STORY_DATA.map((story) => {
-        const { name, imageUrl, id } = story;
+        const { name, imageUrl, id, profilePic } = story;
         return (
           <motion.div
-            transition={{ delay: 1 }}
             onClick={() => {
               selectedId ? setSelectedId(null) : setSelectedId(id);
             }}
@@ -41,8 +52,8 @@ const StoriesContainer = () => {
             }}
             className={selectedId === id ? "opened-story" : ""}
           >
-            <Avatar />
-            <Typography color="white.main" fontWeight="600">
+            <Avatar src={profilePic} />
+            <Typography color="white.light" fontWeight="600">
               {name}
             </Typography>
           </motion.div>

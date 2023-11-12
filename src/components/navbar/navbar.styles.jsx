@@ -33,7 +33,6 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: theme.palette.black.main,
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -47,5 +46,12 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
         width: "20ch",
       },
     },
+  },
+}));
+
+export const StyledLogo = styled("div")(({ theme }) => ({
+  height: "40px",
+  "&:hover": {
+    cursor: "pointer",
   },
 }));

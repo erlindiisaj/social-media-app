@@ -1,12 +1,18 @@
-import { Avatar, Box, Button, Alert } from "@mui/material";
-import "./upload-image.styles.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+
 import { userContext } from "../../contexts/user.context";
-import { useState } from "react";
+
 import { uploadPost } from "../../utils/firebase/firebase.utils";
-import Snackbar from "@mui/material/Snackbar";
-import { ReactComponent as UploadSVG } from "../../Images/upload-img.svg";
+
+import { Avatar, Box, Button, InputLabel, Input } from "@mui/material";
+
 import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
+import CircularProgress from "@mui/material/CircularProgress";
+
+import { ReactComponent as UploadSVG } from "../../Images/upload-img.svg";
+
+import "./upload-image.styles.scss";
+import SnackbarAlert from "../snackbar-alert/snackbar-alert.component";
 
 const initialObjectToAdd = {
   description: "",
@@ -17,8 +23,9 @@ const initialObjectToAdd = {
 const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [objectToAdd, setObjectToAdd] = useState(initialObjectToAdd);
-  const [isSuccessAlertVisable, setIsSuccessAlertVisable] = useState(false);
-  const [isFailedAlertVisable, setIsFailedAlertVisable] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [failedOpen, setFailedOpen] = useState(false);
   const { user } = useContext(userContext);
   const { photoURL } = user;
 
@@ -28,8 +35,8 @@ const CreatePost = () => {
   };
 
   const handleClose = () => {
-    setIsFailedAlertVisable(false);
-    setIsSuccessAlertVisable(false);
+    setSuccessOpen(false);
+    setFailedOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -38,14 +45,19 @@ const CreatePost = () => {
       alert("Please select a photo");
       return;
     }
+    setIsLoading(true);
     try {
       await uploadPost(user, objectToAdd, file);
-      setIsSuccessAlertVisable(true);
+      setIsLoading(false);
+      setSuccessOpen(true);
       setObjectToAdd({ description: "" });
       setFile(null);
     } catch (err) {
+      setIsLoading(false);
+      setFailedOpen(true);
+      setFile(null);
+      setObjectToAdd({ description: "" });
       console.log(err);
-      setIsFailedAlertVisable(true);
     }
   };
 
@@ -61,36 +73,18 @@ const CreatePost = () => {
   return (
     <form onSubmit={handleSubmit} className="upload-image-form">
       <Box className="inputfile-container">
-        <Snackbar
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          open={isSuccessAlertVisable}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            File uploaded successfully!
-          </Alert>
-        </Snackbar>
-        <Snackbar
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          open={isFailedAlertVisable}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            Error! File not uploaded!
-          </Alert>
-        </Snackbar>
+        <SnackbarAlert
+          isOpen={successOpen}
+          handleClose={handleClose}
+          message="File uploaded successfully!"
+          type="success"
+        />
+        <SnackbarAlert
+          isOpen={failedOpen}
+          handleClose={handleClose}
+          message="File upload failed!"
+          type="error"
+        />
 
         <Box
           sx={{
@@ -110,9 +104,22 @@ const CreatePost = () => {
             gridColumn: "2/3",
           }}
         >
-          <input
+          <Input
+            variant="outlined"
+            sx={{
+              width: "100%",
+              height: "50px",
+              borderRadius: "12px",
+              backgroundColor: "backgroundAccent.main",
+              padding: "0 12px",
+              "&&&:before": {
+                borderBottom: "none",
+              },
+              "&&:after": {
+                borderBottom: "none",
+              },
+            }}
             onChange={handleDescriptionChange}
-            className="description-input"
             placeholder="Write a description here..."
             type="text"
             value={objectToAdd.description}
@@ -132,10 +139,15 @@ const CreatePost = () => {
             type="submit"
             style={{
               borderRadius: "12px",
+              width: "80px",
             }}
             variant="contained"
           >
-            Post it!
+            {isLoading ? (
+              <CircularProgress size="20px" color="white" />
+            ) : (
+              "Post it!"
+            )}
           </Button>
         </Box>
 
@@ -163,7 +175,16 @@ const CreatePost = () => {
             className="inputfile"
           />
 
-          <label className={file ? "image-selected" : ""} htmlFor="file">
+          <InputLabel
+            sx={{
+              color: "black.light",
+              "&:hover": {
+                backgroundColor: "backgroundAccent.main",
+              },
+            }}
+            className={file ? "image-selected" : ""}
+            htmlFor="file"
+          >
             {" "}
             {file ? (
               <TaskAltRoundedIcon
@@ -177,7 +198,7 @@ const CreatePost = () => {
               <UploadSVG />
             )}
             {file ? `Image selected!` : "Select an image..."}
-          </label>
+          </InputLabel>
         </Box>
       </Box>
     </form>
