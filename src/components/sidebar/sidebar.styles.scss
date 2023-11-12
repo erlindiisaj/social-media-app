@@ -19,7 +19,13 @@
     cursor: pointer;
     z-index: 1;
     transition: .3s ease;
-    
+    &:hover {
+        border-left: 1px solid #5632FA;
+
+       
+    }
+
+    }
     a {
         display: flex;
         align-items: center;
@@ -29,11 +35,9 @@
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
-        svg {
-            
-        }
+        
     }
-}
+   
 
 .last {
     border-bottom: none !important;
