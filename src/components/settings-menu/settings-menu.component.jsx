@@ -1,31 +1,18 @@
 import { userContext } from "../../contexts/user.context";
 
-import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
 import { Box, Divider, MenuList, Popover } from "@mui/material";
-import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { userSignOut } from "../../utils/firebase/firebase.utils";
 import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { userSignOut } from "../../utils/firebase/firebase.utils";
 const settings = ["Profile", "Settings", "Logout"];
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
-import { userContext } from "../../contexts/user.context";
 
-import { userSignOut } from "../../utils/firebase/firebase.utils";
 
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
-import { Box, Divider, MenuList, Popover } from "@mui/material";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 const SettingsMenu = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
